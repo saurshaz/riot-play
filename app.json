@@ -1,0 +1,10 @@
+{
+  "name": "riot-fullstack-starter-kit",
+  "description": "Riot full stack demo app",
+  "repository": "https://github.com/saurshaz/riot-fullstack-starter-kit",
+  "logo": "https://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "express", "static", "riot", "webpack", "mongodb"],
+  "addons" : [
+  	"mongohq"
+  ]
+}
