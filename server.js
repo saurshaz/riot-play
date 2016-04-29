@@ -1,11 +1,11 @@
 'use strict'
 
-let env = require('./common/lib/environment')
-let log = require('./common/lib/logger')
+let env = require('./server/common/lib/environment')
+let log = require('./server/common/lib/logger')
 let express = require('express')
 let app = express()
 // let secrets = require('../../secrets')
-let sockets_stuff = require('./common/sockets_stuff')
+let sockets_stuff = require('./server/common/sockets_stuff')
 let mongo = require('mongoskin')
 let socket_io = require('socket.io')
 app.set('logger', log)
@@ -17,10 +17,10 @@ app.set('_db', _db)
 app.io = socket_io()
 
 // Bootstrap application settings
-require('./common/express')(app)
+require('./server/common/express')(app)
 
 // Bootstrap routes
-require('./common/routes')(app)
+require('./server/common/routes')(app)
 let server = app.listen(app.get('port'))
 app.io.attach(server)
 
