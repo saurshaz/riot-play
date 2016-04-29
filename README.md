@@ -1,10 +1,9 @@
 #################################################
-## RIOT-APPLYX (OR RIOT-FULLSTACK-STARTER-KIT) ##
+## RIOT-DYNA (OR RIOT-FULLSTACK) ##
 #################################################
 
-- Sublime Plugins it uses (in dev mode)
-- - emmet (for adding more content faster)
-- - SublimeLinter with jshint plugins(jshint installed globally)
+- StandardJS compliant
+
 
 
 
@@ -12,7 +11,7 @@ Client Side ES6 has been the standard (app folder)
 Server side ES6 usage has been kept to minimal (actually i was also thinking whether i shall be doing this in ES5 only) for purposes of this to be useful to someone (in my team) or otherwise :-)
 
 - to get started
--- Move the `riot-applyx-config` folder to one folder above `riot-applyx` app folder(outside this folder). Edit values in the config files found
+-- Move the `riot-dyna-config` folder to one folder above `riot-dyna` app folder(outside this folder). Edit values in the config files found
 For more on ideal directory structure read this `https://gist.github.com/saurshaz/464fcb960c5469e9b271b7ffe5fbe3c6#file-my_node-md`
 -- `chmod +x riotserve.sh` to enable script to run `webpack` based front-end code necessary permissions 
 
@@ -26,12 +25,6 @@ For more on ideal directory structure read this `https://gist.github.com/saursha
 to start in stage
 - `NODE_ENV=prod node server/index.js` for stage (affects env variables loaded)
 - the webpack shall not be needed here, so a bundle shall already be generated and referred to in source code
-
-
-![Home page](/demo.gif)
-
-![Parallax Home page](/demo2.gif)
-
 
 
 ---------------
@@ -104,77 +97,4 @@ what it has ?
 	- ...
 
 
-
----------------
-todos
----------------
-- better structure for the project
-	- - see below
-- bunyan logging to papertrail (https://github.com/mcavage/node-bunyan-syslog#usage)
-- TODO :: FIXME :: REFACTOR ROUTES .. VERY URGENT >>>>
-- webpack work - hot reloading (generate riot files to a /dist dir. make it possible to reload changes with seperate webpack server serving those files) Bug remains - related to `npm run serve`
-- better router logic (like the tester component). make it folder reading based. make the folder configurable from command line.
-- make it possible to show multiple elements at once, maintain already loaded component and refresh only the new part
-- better tester logic and power (make it one point stop before using the elements)
-- showcase adding logic abilities by being able to pass in a config for a page to reduce to a functioning logic bound screen
-- assets packaging using postcss
-- postcss example (read css from .css files) < i think this shall already work>
-- wrap in and build a PWA for mobile platforms (service-worker & othe features)
-- server side 1st render using riot components (SSR ability)
-- webpack based sample projects generated (minimal template)
-- vulcanization
-- make it possible to build multiple projects in this one repo
-- - with this ability components can be made re-usable	
-- integrate with circle or travis CI
-- manage environments for front-end and back-end code
-
----------------
-good to have
----------------
-- scss compatible styles
-- integrate with react-native client
-- integrate with a cordova client
-- build startgazer examples 
-- make time travel and debugger (ala redux devtools) possible
-
-
-
-
-
---------------------------------------------------------------------------------------------
- project structure can be like (with these special directories and files)
---------------------------------------------------------------------------------------------
-- core
-	- server
-	 	- fn1
-	 	- fn2
-	 	....
-	- client
-	 	- fn1
-	 	- fn2
-	 	....
- - thirdparty
- 	- server
-	 	- fn1
-	 	- fn2
- 		....
-	- client
-	 	- fn1
-	 	- fn2
-	 	....
-- components
-	- riot
-		- a.tag
-		- b.tag
-	 	- .....
-- routing
-	- riot
-		- router.js
-- config
-	- riot
-		- main.js
-- index.html (main file)
-Anything else
-- ...
-- ...
 
