@@ -3,11 +3,13 @@
 import riot from 'riot'
 import router from 'riot-router'
 const projectName = window.location.pathname.slice(1) || 'home'
-import RiotControl from '../../public/lib/riot-control'
+// import RiotControl from '../../public/scripts/riot-control'
 import AppStore from '../state-manager/app-store'
 let appStore = new AppStore()
-RiotControl.addStore(appStore)
-riot.control = RiotControl
+// RiotControl.addStore(appStore)
+// riot.control = RiotControl
+
+// TODO :: ADD RIOTCONTROL OR SIMILAR BACK
 
 let self = this
 window.location.hash = window.location.hash || '#home'

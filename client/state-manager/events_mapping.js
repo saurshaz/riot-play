@@ -1,8 +1,8 @@
 import riot from 'riot'
-// 
+
 //  This is the place where events for any components can be registered
 //  All components will register these in the appropriate places
-// 
+
 const events_mapping = {}
 
 // ******* Login-form events registered ******
