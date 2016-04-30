@@ -72,7 +72,7 @@ module.exports = function (app) {
     renderWithServiceOutput(passedConfig, res)
   })
 
-  app.get('/home', function (req, res) {
+  app.get('*', function (req, res) {
     res.cookie('appinit', 'true')
 
     // TODO :: make it passable from PUT request instead of GET

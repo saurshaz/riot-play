@@ -13,11 +13,12 @@ riot.control = RiotControl
 riot.routeState = {
   view: ''
 }
-
 let self = this
 let _views = ['chatapp', 'testapp', 'helloapp', 'riot-app-test', 'home', 'fstag']
 let _defaultView = 'fstag'
 let _currentView = ''
+location.hash = location.hash || '#home'
+
 // Redirect unlogged users to /login page
 function processorFilter (request, response, next) {
   // TODO :: HOW CAN PAGES BE READ FROM CONFIGURATION ?
