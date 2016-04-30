@@ -1,5 +1,5 @@
 'use strict'
-let _ = require('ramda')
+// let _ = require('ramda')
 
 module.exports = function (app) {
   let log = app.get('logger')
@@ -16,7 +16,7 @@ module.exports = function (app) {
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DEletE,OPTIONS')
     res.header('Access-Control-Allow-Headers', '*')
     // intercept OPTIONS method
-    if ('OPTIONS' === req.method) {
+    if (req.method === 'OPTIONS') {
       res.sendStatus(200)
     } else {
       // if (req.url === "/fyler" && !req.isAuthenticated()) {
@@ -35,17 +35,23 @@ module.exports = function (app) {
           if (passedConfig.isJsonOutput && !passedConfig.view_name) {
             response.json({ result: fn_result })
           } else {
-            response.render(passedConfig.view_name, { result: fn_result, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS  })
+            response.render(passedConfig.view_name, {
+              result: fn_result, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS
+            })
           }
         } else {
-          response.render('error', { error: err, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS  })
+          response.render('error', {
+            error: err, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS
+          })
         }
       })
     } else {
       if (passedConfig.isJsonOutput && !passedConfig.view_name) {
         response.json({ result: _default_json })
       } else {
-        response.render(passedConfig.view_name, { result: _default_json,STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS})
+        response.render(passedConfig.view_name, {
+          result: _default_json, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS
+        })
       }
     }
   }

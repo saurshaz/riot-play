@@ -1,0 +1,10 @@
+node_modules/
+build/
+bower_components/
+secrets.js
+server/config/secrets.js
+dump.rdb
+dist/
+.sync
+.sync/
+riot-dyna-config/
