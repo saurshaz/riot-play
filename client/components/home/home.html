@@ -32,7 +32,7 @@ import EVT from '../../state-manager/event_constants'
   <script>
     let self = this;
     setTimeout(function() {
-      riot.control.trigger(EVT.INIT_CHAT_CONTAINER, {"a":"b"});
+      riot.control.trigger(EVT.INIT_CHAT_CONTAINER, {'a':'b'});
     }, 2500);
     self.on('mount', function() {
       // riot.mount('*')

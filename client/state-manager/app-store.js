@@ -1,6 +1,5 @@
 import riot from 'riot'
 import EVT from './event_constants'
-import cookie from 'react-cookie'
 import utils from '../../public/lib/utils'
 
 var AppStore = function AppStore () {
