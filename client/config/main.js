@@ -6,6 +6,4 @@
 
 // import '../lib/mixins/eh-mixin.js'
 // import '../lib/mixins/riot-creator-mixin.js'
-
-require(__dirname + '/../styles/chat.css')
-require(__dirname + '/../router')
+require(__dirname + '/../router/')

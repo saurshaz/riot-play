@@ -1,7 +1,7 @@
 import riot from 'riot'
 import EVT from './event_constants'
 import cookie from 'react-cookie'
-import utils from '../lib/utils'
+import utils from '../../public/lib/utils'
 
 var AppStore = function AppStore () {
   if (!(this instanceof AppStore)) return new AppStore()

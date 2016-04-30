@@ -4,6 +4,7 @@ let _ = require('ramda')
 module.exports = function (app) {
   let log = app.get('logger')
   let env = app.get('env')
+  const STATIC_RESOURCES_SERVER_ADDRESS = env.get('STATIC_RESOURCES_SERVER_ADDRESS') || '.'
   let core_service = require('../core/')(app)
   // let thirdparty_service = require('../thirdparty/')
 
@@ -34,24 +35,41 @@ module.exports = function (app) {
           if (passedConfig.isJsonOutput && !passedConfig.view_name) {
             response.json({ result: fn_result })
           } else {
-            response.render(passedConfig.view_name, { result: fn_result })
+            response.render(passedConfig.view_name, { result: fn_result, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS  })
           }
         } else {
-          response.render('error', { error: err })
+          response.render('error', { error: err, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS  })
         }
       })
     } else {
       if (passedConfig.isJsonOutput && !passedConfig.view_name) {
         response.json({ result: _default_json })
       } else {
-        response.render(passedConfig.view_name, { result: _default_json })
+        response.render(passedConfig.view_name, { result: _default_json,STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS})
       }
     }
   }
 
-  app.get('/', function (req, res) {
+  app.put('/', function (req, res) {
     res.cookie('appinit', 'true')
 
+    // TODO :: make it passable from PUT request instead of GET
+    // call a function
+    let input_data = req.body.input_data || { a: 'a_val', b: 'b_val' }
+    let fn_to_call = req.body.fn_to_call || req.query.handler
+    let passedConfig = {
+      input_data: input_data,
+      fn_to_call: fn_to_call,
+      view_name: 'index',
+      isJsonOutput: false
+    }
+    renderWithServiceOutput(passedConfig, res)
+  })
+
+  app.get('/home', function (req, res) {
+    res.cookie('appinit', 'true')
+
+    // TODO :: make it passable from PUT request instead of GET
     // call a function
     let input_data = { a: 'a_val', b: 'b_val' }
     let fn_to_call = req.query.handler
@@ -64,16 +82,17 @@ module.exports = function (app) {
     renderWithServiceOutput(passedConfig, res)
   })
 
-  app.get('/api', function (req, res) {
+  app.put('/api', function (req, res) {
     res.cookie('appinit', 'true')
 
+    // TODO :: make it passable from PUT request instead of GET
     // call a function
     let input_data = { a: 'a_val', b: 'b_val' }
     let fn_to_call = req.query.handler
     let passedConfig = {
       input_data: input_data,
       fn_to_call: fn_to_call,
-      view: undefined,
+      view_name: undefined,
       isJsonOutput: true
     }
 

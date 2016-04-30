@@ -1,4 +1,4 @@
 #!/bin/bash
 
-echo starting riot-applyx!
-./node_modules/.bin/webpack-dev-server --port 8088 --host '$1' --hot --content-base ./dist/ --config ./webpack/webpack.config.js --hot
+echo starting riot-dyna!
+../node_modules/.bin/webpack-dev-server --port 8088 --host 'localhost' --hot --content-base ./dist/ --config ./webpack/webpack.config.js --hot

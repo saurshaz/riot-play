@@ -53,7 +53,7 @@ module.exports = function (app) {
 
   // ejs
   // set views path, template engine and default layout
-  app.set('views', __dirname + '/views')
+  app.set('views', path.join(__dirname, '..', 'views'))
 
   // Configuring the template system.
   nunjucks.setup({

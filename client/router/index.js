@@ -3,7 +3,7 @@
 import riot from 'riot'
 import router from 'riot-router'
 const projectName = location.pathname.slice(1) || 'home'
-import RiotControl from '../lib/riot-control'
+import RiotControl from '../../public/lib/riot-control'
 import AppStore from '../state-manager/app-store'
 let appStore = new AppStore()
 RiotControl.addStore(appStore)
@@ -37,14 +37,14 @@ function processorFilter (request, response, next) {
   }
   try {
     _currentView = view
-    require('../views/' + projectName + '/' + view + '.html')
+    require('../components/' + projectName + '/' + view + '.html')
     let tags = riot.mount('#app', view)
     if (extraParams.header !== 'false') {
-      require('../views/' + projectName + '/headertag.html')
+      require('../components/' + projectName + '/headertag.html')
       let tagsH = riot.mount('#headertag', 'headertag')
     }
     if (extraParams.footer !== 'false') {
-      require('../views/' + projectName + '/footertag.html')
+      require('../components/' + projectName + '/footertag.html')
       let tagsF = riot.mount('#footertag', 'footertag')
     }
   } catch(e) {
