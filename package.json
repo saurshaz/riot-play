@@ -36,8 +36,7 @@
     "browsersync": "./node_modules/.bin/browser-sync start --server --files './dist/**/*, app/**/*' --startPath app",
     "sl": "sh ./sh/make-symlinks.sh",
     "start": "./node_modules/.bin/parallelshell 'npm run serve' 'npm run dev'",
-    "client": "sh riotserve.sh" ,
-    
+    "client": "sh riotserve.sh",
     "server": "LOG_LEVEL=info NODE_ENV=development nodemon -w server server/index.js"
   },
   "author": "Saurshaz",
@@ -105,7 +104,7 @@
     "jsx-loader": "^0.13.2",
     "jwt-simple": "^0.5.0",
     "keymirror": "^0.1.1",
-    "lodash": "^3.9.3",
+    "lodash": "<latest></latest>",
     "mailgun-js": "^0.7.4",
     "method-override": "^2.3.1",
     "momentjs": "^1.0.4",
@@ -125,6 +124,7 @@
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
     "proxy-middleware": "^0.15.0",
+    "ramda": "^0.21.0",
     "react-cookie": "^0.4.1",
     "rimraf": "2.5.0",
     "riot": "^2.3.13",

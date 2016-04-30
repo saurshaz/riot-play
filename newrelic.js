@@ -21,5 +21,5 @@ exports.config = {
      */
     level: 'info'
   },
-  browser_monitoring:{enabled:true}
+  browser_monitoring: {enabled: true}
 }

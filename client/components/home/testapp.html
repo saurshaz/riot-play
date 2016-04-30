@@ -60,7 +60,7 @@ import EVT from '../../state-manager/event_constants'
 
           if(neededDataObject.cid && neededDataObject.p){
             // pane and component id both specified
-            var mytag = require('./'+neededDataObject.cid+'.tag')
+            var mytag = require('./'+neededDataObject.cid+'.html')
             var tags =riot.mount('#'+neededDataObject.p, neededDataObject.cid)
             // riot.render(mytag, extraDataObject)
             //self.tick = function () {

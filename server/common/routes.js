@@ -1,5 +1,5 @@
 'use strict'
-let _ = require('lodash')
+let _ = require('ramda')
 
 module.exports = function (app) {
   let log = app.get('logger')
@@ -15,7 +15,7 @@ module.exports = function (app) {
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DEletE,OPTIONS')
     res.header('Access-Control-Allow-Headers', '*')
     // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
+    if ('OPTIONS' === req.method) {
       res.sendStatus(200)
     } else {
       // if (req.url === "/fyler" && !req.isAuthenticated()) {
@@ -26,28 +26,57 @@ module.exports = function (app) {
     }
   })
 
+  function renderWithServiceOutput (passedConfig, response) {
+    let _default_json = { api: 'ok' }
+    if (core_service[passedConfig.fn_to_call] && typeof core_service[passedConfig.fn_to_call] === 'function') {
+      core_service[passedConfig.fn_to_call](passedConfig.input_data, function (err, fn_result) {
+        if (!err) {
+          if (passedConfig.isJsonOutput && !passedConfig.view_name) {
+            response.json({ result: fn_result })
+          } else {
+            response.render(passedConfig.view_name, { result: fn_result })
+          }
+        } else {
+          response.render('error', { error: err })
+        }
+      })
+    } else {
+      if (passedConfig.isJsonOutput && !passedConfig.view_name) {
+        response.json({ result: _default_json })
+      } else {
+        response.render(passedConfig.view_name, { result: _default_json })
+      }
+    }
+  }
+
   app.get('/', function (req, res) {
     res.cookie('appinit', 'true')
 
     // call a function
-    let input_data = {a: 'a_val',b: 'b_val'}
+    let input_data = { a: 'a_val', b: 'b_val' }
     let fn_to_call = req.query.handler
-    log.info('core_service[fn_to_call]' , core_service[fn_to_call])
-    core_service[fn_to_call](input_data, function (err, fn_result) {
-      res.render('index', {result: fn_result})
-    })
+    let passedConfig = {
+      input_data: input_data,
+      fn_to_call: fn_to_call,
+      view_name: 'index',
+      isJsonOutput: false
+    }
+    renderWithServiceOutput(passedConfig, res)
   })
 
   app.get('/api', function (req, res) {
     res.cookie('appinit', 'true')
 
     // call a function
-    let input_data = {a: 'a_val',b: 'b_val'}
+    let input_data = { a: 'a_val', b: 'b_val' }
     let fn_to_call = req.query.handler
+    let passedConfig = {
+      input_data: input_data,
+      fn_to_call: fn_to_call,
+      view: undefined,
+      isJsonOutput: true
+    }
 
-    core_service[fn_to_call](input_data, function (err, fn_result) {
-      log.info('fn_result ', fn_result)
-      res.json(fn_result)
-    })
+    renderWithServiceOutput(passedConfig, res)
   })
 }

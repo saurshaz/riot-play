@@ -80,8 +80,8 @@ what it has ?
 			 	- fn2
 			 	....
 		- components  (visible and totally editable to end-users)
-			- a.tag
-			- b.tag
+			- a.html
+			- b.html
 		 	- .....
 		- router (visible and partially editable to end-users. based on user's entries app will route)
 			- index.js
