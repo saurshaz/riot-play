@@ -1,5 +1,6 @@
 var riot = require('riot')
 var EVT = require('../../state-manager/event_constants')
+<!-- var EventsMixin = require('../../../public/lib/events-mixin')  -->
 var AppActions = require('../../state-manager/actions') 
 var AppStores = require('../../state-manager/stores') 
 
@@ -95,7 +96,9 @@ var AppStores = require('../../state-manager/stores')
     let self = this
     self.actions = new AppActions()
     self.stores = new AppStores()
-     
+    
+
+    // TODO :: MOVE THESE 2 FUNCTIONS TO A MIXIN 
     self.updateMe =  function (changeArr) {
       console.log('****** setting changed state *********',changeArr)
       for(var i in changeArr){
@@ -235,6 +238,6 @@ var AppStores = require('../../state-manager/stores')
       debugger
     }
 
-
+    // this.mixin(EventsMixin)
   </script>
 </appbrowser>

@@ -31,7 +31,7 @@ function processorFilter (request, response, next) {
     }
   }
   try {
-    require('../components/' + projectName + '/' + view + '.html')
+    require('../components/' + view + '.html')
     riot.mount('#app', view)
 
     // we need this to easily check the current route from every component
@@ -40,11 +40,11 @@ function processorFilter (request, response, next) {
     }
 
     if (extraParams.header !== 'false') {
-      require('../components/' + projectName + '/headertag.html')
+      require('../components/headertag.html')
       riot.mount('#headertag', 'headertag')
     }
     if (extraParams.footer !== 'false') {
-      require('../components/' + projectName + '/footertag.html')
+      require('../components/footertag.html')
       riot.mount('#footertag', 'footertag')
     }
   } catch (e) {

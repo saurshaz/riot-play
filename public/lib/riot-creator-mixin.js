@@ -1,3 +1,4 @@
+var riot = require('riot')
 // riot-creator-mixin.js
 riot.mixin('riotCreatorMixin', {
   createRiotElement: function (elName, markup, innerMarkup, riot, eventsconfig, id, visibleviews) {
