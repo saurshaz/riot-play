@@ -1,7 +1,5 @@
 /*
 ** This file contains all flux implementation of dispatcher
-** 
-** 
 */
 var RiotControl = {
   _stores: [],
@@ -22,6 +20,7 @@ var RiotControl = {
       console.log('>>>>>>>> CAUGHT >>>>>>>>')
       console.log(args)
     }
+    debugger
     this._stores.forEach(function (el) {
       el[api].apply(el, args)
     })

@@ -1,5 +1,7 @@
 var riot = require('riot')
-//import EVT from '../../state-manager/event_constants' 
+var EVT = require('../../state-manager/event_constants')
+var AppActions = require('../../state-manager/actions') 
+var AppStores = require('../../state-manager/stores') 
 
 
 <appbrowser header='false' nofooter='false'>
@@ -77,6 +79,9 @@ var riot = require('riot')
         </div>  
   
         <div id='appMessageDiv'>
+          <div>
+            User auth status is {authstatus}
+          </div>
           <div if={created_app_name || selected_app_name}>
             <p>App is <a href='#!app?app_id={selected_app || created_app}'>{selected_app_name || created_app_name}</a></p>
             <button class='btn' data-app_id='{selected_app || created_app}' data-app_name='{created_app_name || selected_app_name}'  onclick={deleteApp}>Delete App</button>
@@ -88,30 +93,29 @@ var riot = require('riot')
   </section>
   <script>
     let self = this
-    self.mode = ''
-    self.selected_app = ''
-    self.selected_app_name = ''
-    self.created_app = ''
-    self.created_app_name = ''
+    self.actions = new AppActions()
+    self.stores = new AppStores()
+     
+    self.updateMe =  function (changeArr) {
+      console.log('****** setting changed state *********',changeArr)
+      for(var i in changeArr){
+        var obj = changeArr[i]
+        var key = Object.keys(obj)[0]
+        self[key] = obj[key]
+      }
+      self.update()
+    }
+    self.initState = function (state) {
+      console.log('****** setting initial state *********',state)
+      self.update()
+    }
     
-    setTimeout(function() { 
-      //riot.control.trigger(EVT.INIT_CHAT_CONTAINER, {"a":"b"})
-    }, 2500)
-
     self.on('mount',function() {
-      //debugger;
-      self.root.querySelector('#createAppBtn').style.display = 'block'
-      self.root.querySelector('#existingAppBtn').style.display = 'block'
-      self.root.querySelector('#createAppDiv').style.display = 'none'
-
-
+      self.actions.init('appbrowser')
+      // self.setState('app_items', [{app_name: 'rioter-one',app_id: '1'}, {app_name: 'rioter-two',app_id: '2'}, {app_name: 'rioter-three',app_id: '3'}])
       
       setTimeout(function() {
-        // TODO :: ATTACH ANY 3rd party service to load data
-        self.app_items = [{app_name:'rioter-one',app_id:'1'},{app_name:'rioter-two',app_id:'2'},{app_name:'rioter-three',app_id:'3'}]
-        self.update()
-        
-         $('#app-selector').dropdown({
+        $('#app-selector').dropdown({
           inDuration: 300,
           outDuration: 225,
           constrain_width: false, // Does not change width of dropdown to that of the activator
@@ -119,9 +123,24 @@ var riot = require('riot')
           gutter: 0, // Spacing from edge
           belowOrigin: false, // Displays dropdown below the button
           alignment: 'left' // Displays dropdown with edge aligned to the left of button
-        });
-        
-      },1000)
+        })
+      }, 2000);
+      
+      // **** configurable-flux-for-riot ****
+      // hook up to any changes in the store this view watches
+      self.WATCHED_STORES = ['APP','USER']
+      
+      // for (var i = 0; i < self.WATCHED_STORES.length; i++) {
+      // }
+      PubSub.subscribe('APP_STATE_INIT', self.initState)// initialize state
+      self.WATCHED_STORES.forEach(( item, i) => {
+          PubSub.subscribe(item+'_STATE_CHANGED', self.updateMe)// initialize change listener
+      })
+      self.root.querySelector('#createAppBtn').style.display = 'block'
+      self.root.querySelector('#existingAppBtn').style.display = 'block'
+      self.root.querySelector('#createAppDiv').style.display = 'none'
+
+      self.actions.fetchApps("saurshaz")
     })
     processAppSelect(e){
       let target =  e.target
