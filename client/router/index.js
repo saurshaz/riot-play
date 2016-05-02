@@ -8,8 +8,6 @@ const projectName = window.location.pathname.slice(1) || 'home'
 // RiotControl.addStore(appStore)
 // riot.control = RiotControl
 
-// TODO :: ADD RIOTCONTROL OR SIMILAR BACK
-
 let self = this
 window.location.hash = window.location.hash || '#home'
 
@@ -33,20 +31,19 @@ function processorFilter (request, response, next) {
   try {
     require('../components/' + view + '.html')
     riot.mount('#app', view)
-
     // we need this to easily check the current route from every component
     riot.routeState = {
       view: ''
     }
 
-    if (extraParams.header !== 'false') {
-      require('../components/headertag.html')
-      riot.mount('#headertag', 'headertag')
-    }
-    if (extraParams.footer !== 'false') {
-      require('../components/footertag.html')
-      riot.mount('#footertag', 'footertag')
-    }
+  // if (extraParams.header !== 'false') {
+  //   require('../components/headertag.html')
+  //   riot.mount('#headertag', 'headertag')
+  // }
+  // if (extraParams.footer !== 'false') {
+  //   require('../components/footertag.html')
+  //   riot.mount('#footertag', 'footertag')
+  // }
   } catch (e) {
     console.log(' **** nothing found with >> ', view)
     console.log('details of error ', e)

@@ -2,7 +2,8 @@ import riot from 'riot'
 import './main.html'
 import './navi.html'
 import './help.html'
-
+import state from '../js/state/app'
+import EventsMixin from '../../public/lib/events-mixin'
 <home>
   <main></main>
   <navi></navi>
@@ -11,4 +12,15 @@ import './help.html'
   <style>
     body { margin: 0 }
   </style>
+
+  <script>
+  	this.mixin(EventsMixin)
+  	this.log([{text_to_display:'applify'}])
+  	this.state = state.app
+  	console.log(this.state)
+  	// setInterval(() => {
+	  // 	console.log(this.state.home_message)
+
+  	// }, 1000);
+  </script>
 </home>

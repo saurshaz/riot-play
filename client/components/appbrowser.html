@@ -1,9 +1,9 @@
 var riot = require('riot')
-var EVT = require('../../state-manager/event_constants')
+var EVT = require('../state-manager/event_constants')
 <!-- var EventsMixin = require('../../../public/lib/events-mixin')  -->
-var AppActions = require('../../state-manager/actions') 
-var AppStores = require('../../state-manager/stores') 
-
+var AppActions = require('../state-manager/actions') 
+var AppStores = require('../state-manager/stores') 
+import EventsMixin from '../../public/lib/events-mixin'
 
 <appbrowser header='false' nofooter='false'>
     <link href="http://materializecss.com/css/prism.css" rel="stylesheet">
@@ -94,24 +94,10 @@ var AppStores = require('../../state-manager/stores')
   </section>
   <script>
     let self = this
+    self.mixin(EventsMixin)
     self.actions = new AppActions()
     self.stores = new AppStores()
     
-
-    // TODO :: MOVE THESE 2 FUNCTIONS TO A MIXIN 
-    self.updateMe =  function (changeArr) {
-      console.log('****** setting changed state *********',changeArr)
-      for(var i in changeArr){
-        var obj = changeArr[i]
-        var key = Object.keys(obj)[0]
-        self[key] = obj[key]
-      }
-      self.update()
-    }
-    self.initState = function (state) {
-      console.log('****** setting initial state *********',state)
-      self.update()
-    }
     
     self.on('mount',function() {
       self.actions.init('appbrowser')
@@ -133,8 +119,6 @@ var AppStores = require('../../state-manager/stores')
       // hook up to any changes in the store this view watches
       self.WATCHED_STORES = ['APP','USER']
       
-      // for (var i = 0; i < self.WATCHED_STORES.length; i++) {
-      // }
       PubSub.subscribe('APP_STATE_INIT', self.initState)// initialize state
       self.WATCHED_STORES.forEach(( item, i) => {
           PubSub.subscribe(item+'_STATE_CHANGED', self.updateMe)// initialize change listener
@@ -145,98 +129,99 @@ var AppStores = require('../../state-manager/stores')
 
       self.actions.fetchApps("saurshaz")
     })
-    processAppSelect(e){
-      let target =  e.target
-      self.selected_app =target.getAttribute('data-appid')
-      self.selected_app_name = target.innerHTML
-      self.created_app = ''
-      self.created_app_name = ''
-      self.root.querySelector('#appMessageDiv').style.display = 'block'
-      //self.root.querySelector('#createAppBtn').style.display ='none'
-      self.update()
-    }
+    
+    // processAppSelect(e){
+    //   let target =  e.target
+    //   self.selected_app =target.getAttribute('data-appid')
+    //   self.selected_app_name = target.innerHTML
+    //   self.created_app = ''
+    //   self.created_app_name = ''
+    //   self.root.querySelector('#appMessageDiv').style.display = 'block'
+    //   //self.root.querySelector('#createAppBtn').style.display ='none'
+    //   self.update()
+    // }
 
-    processAppCreate(e){
-      let target =  e.target
-      self.root.querySelector('#createAppDiv').style.display = 'block'
-      self.root.querySelector('#appMessageDiv').style.display ='none'
-      self.root.querySelector('#existingAppBtn').style.display = 'none'
-      self.update()
-    }
-
-
-    submitAppCreate(e){
-      let target =  e.target
-      self.mode = 'created'
-      self.created_app_name = self.root.querySelector('#createAppInput').value
-      self.created_app ='4'
-      self.selected_app = ''
-      self.selected_app_name = ''
-      self.app_items.push({app_name:self.root.querySelector('#createAppInput').value, app_id:'4'})
-      // TODO :: add logic for above hardcoding removal
-
-      self.root.querySelector('#appMessageDiv').style.display = 'block'
-      self.root.querySelector('#createAppDiv').style.display = 'none'
-      //self.root.querySelector('#createAppBtn').style.display ='block'
-      self.root.querySelector('#existingAppBtn').style.display = 'block'
-      //debugger
-    }
-
-    resetAppCreate(e){
-      let target =  e.target
-      self.mode = ''
-      self.created_app_name = ''
-      self.created_app =''
-      self.selected_app = ''
-      self.selected_app_name = ''
-      self.root.querySelector('#appMessageDiv').style.display = 'block'
-      self.root.querySelector('#createAppDiv').style.display = 'none'
-     // self.root.querySelector('#createAppBtn').style.display ='block'
-      self.root.querySelector('#existingAppBtn').style.display = 'block'
-      //debugger
-    }
-
-    processAppSelection(e){
-      let target =  e.target
-      self.mode = 'selected'
-      self.selected_app =target.getAttribute('data-appid')
-      self.selected_app_name = target.getAttribute('data-app_name')
-      self.created_app_name = ''
-      self.created_app =''
-      self.root.querySelector('#createAppDiv').style.display = 'block'
-      self.root.querySelector('#appMessageDiv').style.display ='block'
-      self.root.querySelector('#existingAppBtn').style.display = 'none'
-      self.update()
-    }
-
-    processAppDeletion(e){
-      let target =  e.target
-      self.selected_app =target.getAttribute('data-appid')
-      self.selected_app_name = target.innerHTML
-      self.created_app_name = ''
-      self.created_app =''
-      self.root.querySelector('#createAppDiv').style.display = 'block'
-      //self.root.querySelector('#createAppBtn').style.display ='none'
-      self.root.querySelector('#existingAppBtn').style.display = 'none'
-      self.update()
-    }
+    // processAppCreate(e){
+    //   let target =  e.target
+    //   self.root.querySelector('#createAppDiv').style.display = 'block'
+    //   self.root.querySelector('#appMessageDiv').style.display ='none'
+    //   self.root.querySelector('#existingAppBtn').style.display = 'none'
+    //   self.update()
+    // }
 
 
-    deleteApp(e){
-      let target =  e.target
-      self[self.mode +'_app'] = target.getAttribute('data-app_id')
-      self[self.mode +'_app_name'] = target.getAttribute('data-app_name')
-      // todo :: add logic to actually remove app
-      debugger
-    }
+    // submitAppCreate(e){
+    //   let target =  e.target
+    //   self.mode = 'created'
+    //   self.created_app_name = self.root.querySelector('#createAppInput').value
+    //   self.created_app ='4'
+    //   self.selected_app = ''
+    //   self.selected_app_name = ''
+    //   self.app_items.push({app_name:self.root.querySelector('#createAppInput').value, app_id:'4'})
+    //   // TODO :: add logic for above hardcoding removal
 
-    goToApp(e){
-      let target =  e.target
-      self[self.mode +'_app'] = target.getAttribute('data-app_id')
-      self[self.mode +'_app_name'] = target.getAttribute('data-app_name')
-      // todo :: add logic to actually navigate to that App
-      debugger
-    }
+    //   self.root.querySelector('#appMessageDiv').style.display = 'block'
+    //   self.root.querySelector('#createAppDiv').style.display = 'none'
+    //   //self.root.querySelector('#createAppBtn').style.display ='block'
+    //   self.root.querySelector('#existingAppBtn').style.display = 'block'
+    //   //debugger
+    // }
+
+    // resetAppCreate(e){
+    //   let target =  e.target
+    //   self.mode = ''
+    //   self.created_app_name = ''
+    //   self.created_app =''
+    //   self.selected_app = ''
+    //   self.selected_app_name = ''
+    //   self.root.querySelector('#appMessageDiv').style.display = 'block'
+    //   self.root.querySelector('#createAppDiv').style.display = 'none'
+    //  // self.root.querySelector('#createAppBtn').style.display ='block'
+    //   self.root.querySelector('#existingAppBtn').style.display = 'block'
+    //   //debugger
+    // }
+
+    // processAppSelection(e){
+    //   let target =  e.target
+    //   self.mode = 'selected'
+    //   self.selected_app =target.getAttribute('data-appid')
+    //   self.selected_app_name = target.getAttribute('data-app_name')
+    //   self.created_app_name = ''
+    //   self.created_app =''
+    //   self.root.querySelector('#createAppDiv').style.display = 'block'
+    //   self.root.querySelector('#appMessageDiv').style.display ='block'
+    //   self.root.querySelector('#existingAppBtn').style.display = 'none'
+    //   self.update()
+    // }
+
+    // processAppDeletion(e){
+    //   let target =  e.target
+    //   self.selected_app =target.getAttribute('data-appid')
+    //   self.selected_app_name = target.innerHTML
+    //   self.created_app_name = ''
+    //   self.created_app =''
+    //   self.root.querySelector('#createAppDiv').style.display = 'block'
+    //   //self.root.querySelector('#createAppBtn').style.display ='none'
+    //   self.root.querySelector('#existingAppBtn').style.display = 'none'
+    //   self.update()
+    // }
+
+
+    // deleteApp(e){
+    //   let target =  e.target
+    //   self[self.mode +'_app'] = target.getAttribute('data-app_id')
+    //   self[self.mode +'_app_name'] = target.getAttribute('data-app_name')
+    //   // todo :: add logic to actually remove app
+    //   debugger
+    // }
+
+    // goToApp(e){
+    //   let target =  e.target
+    //   self[self.mode +'_app'] = target.getAttribute('data-app_id')
+    //   self[self.mode +'_app_name'] = target.getAttribute('data-app_name')
+    //   // todo :: add logic to actually navigate to that App
+    //   debugger
+    // }
 
     // this.mixin(EventsMixin)
   </script>

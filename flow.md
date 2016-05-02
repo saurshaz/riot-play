@@ -33,3 +33,13 @@ and login.html component can watch only stateChange of global.user and global.ap
 the updateChange event has the dual responsibility of 
 - making the change in the stateTree
 - notifying also what has changed in the state tree
+
+
+- event + selector => handler (store function) which can again result in signal or a state change
+- emit signal => handler (store function) which can again result in signal or a state change
+- views watch => state, and pick their state from their only, so any changes are directly reflected.
+- views do not directly change state (they do signal -> store -> state change always). This helps other interested views also 
+
+
+- event + selector publish an event
+- views capture 

@@ -65,7 +65,7 @@
     "react-hot-loader": "^1.2.8",
     "riot": "^2.3.18",
     "riot-compiler": "^2.3.23",
-    "riotjs-loader": "^1.2.0",
+    "riotjs-loader": "^3.0.0",
     "sass-loader": "^1.0.2",
     "static-site-generator-webpack-plugin": "^2.0.1",
     "style-loader": "^0.13.1",
