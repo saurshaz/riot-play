@@ -6,8 +6,8 @@ global.app = {
 
 PubSub.subscribe('context_update_init', (data) => {
   console.log('*** context updated ***')
-  // debugger
-  global.app.home_message = data.data
+  debugger
+  global.app.home_message = data.today
   PubSub.publish('context_updated', { global: { app: { home_message: global.app.home_message } } })
 })
 

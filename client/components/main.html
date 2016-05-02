@@ -9,13 +9,16 @@ import state from '../js/state/app'
     <div>
       <button id="clicker" onclick={changeData}>Update</button>
     </div> 
-    <tabs-with-content-example></tabs-with-content-example>
-    <ul if={ isFirst }>
-      <li each={ data }><a href="#/first/{ id }">{ title }</a></li>
-    </ul>
   </article>
+  <section>
+    <div each={d in items}>
+      <span if={d.id}>
+       <span onclick="{d.id}">Fruit is {d.title} & {d.body}</span>
+      </span>
+    </div>
+  </section>
 
-  <script src='client/js/state/mainjs.js' type="es6"></script>
+  <script src='client/js/state/main.js' type="es6"></script>
 
   <style scoped>
     :scope {
