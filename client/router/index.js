@@ -29,7 +29,7 @@ function processorFilter (request, response, next) {
     }
   }
   try {
-    require('../components/' + view + '.html')
+    require('../components/home/' + view + '.html')
     riot.mount('#app', view)
     // we need this to easily check the current route from every component
     riot.routeState = {
