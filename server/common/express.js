@@ -4,10 +4,10 @@ let express = require('express')
 let session = require('express-session')
 let bodyParser = require('body-parser')
 let cookieParser = require('cookie-parser')
-let MongoStore = require('connect-mongo')(session)
+// let MongoStore = require('connect-mongo')(session)
 let path = require('path')
-let flash = require('express-flash')
-let methodOverride = require('method-override')
+// let flash = require('express-flash')
+// let methodOverride = require('method-override')
 let httpProxy = require('http-proxy')
 let proxy = httpProxy.createProxyServer()
 let nunjucks = require('express-nunjucks')
@@ -29,7 +29,7 @@ module.exports = function (app) {
 
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
-  app.use(methodOverride())
+  // app.use(methodOverride())
   app.use(express.static(path.join(__dirname, '../..', 'public')))
   app.use(cookieParser())
   let sess = {
@@ -44,12 +44,12 @@ module.exports = function (app) {
     cookie: {
       httpOnly: false
     },
-    store: new MongoStore({ url: env.get('SESSIONS_DBURL'), autoReconnect: true})
+  // store: new MongoStore({ url: env.get('SESSIONS_DBURL'), autoReconnect: true})
   // store: new RedisStore({ url: redis_url })
   }
 
   app.use(session(sess))
-  app.use(flash())
+  // app.use(flash())
 
   // ejs
   // set views path, template engine and default layout

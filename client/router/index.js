@@ -45,7 +45,7 @@ function processorFilter (request, response, next) {
   //   riot.mount('#footertag', 'footertag')
   // }
   } catch (e) {
-    console.log(' **** nothing found with >> ', view)
+    console.log(' **** error in routing for view  >> ', view)
     console.log('details of error ', e)
     next()
   } finally {
