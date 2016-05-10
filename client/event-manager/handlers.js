@@ -20,10 +20,11 @@ handlers['login'].handleLogin = function (data, cb, event) {
   if (data.userId === 'saurshaz' && data.userPassword === 'password') {
     this.userId === ' '
     this.userPassword === ' '
-    this.authStatus = true
+    this.global = this.global || {}
+    this.global.authStatus = true
     this.me = data.userId
   } else {
-    this.authStatus = false
+    this.global.authStatus = false
   }
 
   this.authStatus = this.authStatus ? 'logged In' : ' Logged Out'
@@ -34,8 +35,9 @@ handlers['login'].handleResetLogin = function (data, cb, event) {
   data = filterData(data)
   this.userId = ' '
   this.userPassword = ' '
-  this.authStatus = false
-  this.authStatus = this.authStatus ? 'logged In' : ' Logged Out'
+  this.global = this.global || {}
+  this.global.authStatus = true
+  this.global.authStatus = this.global.authStatus ? 'logged In' : ' Logged Out'
   console.log(this)
   cb(null, this)
 }

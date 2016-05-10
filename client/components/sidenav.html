@@ -4,6 +4,7 @@ import riot from 'riot'
 
 import handlers from '../event-manager/handlers'
 import events from '../event-manager/events'
+import state from '../event-manager/state'
 
 <sidenav>
     <div class="section side-nav fixed" style="background-color: #ee6e73;"> 
@@ -18,10 +19,8 @@ import events from '../event-manager/events'
     </div>
     <script>
       let self = this;
-      self.global = self.global || {}
-      // todo :: state shall be shared from single location
-      self.global.state = {me:'saurshaz',userId:'',userPassword:''}
-      self._ = self.global.state
+      self.state = state
+      self._ = self.state
 
 
       self.on('mount', function() {

@@ -4,20 +4,19 @@ import riot from 'riot'
 
 import handlers from '../event-manager/handlers'
 import events from '../event-manager/events'
+import state from '../event-manager/state'
 
 <header>
     <div class="section top-nav fixed" style="    margin-left: 15%;">
       <nav id="messageSection">
       <p style="margin-left:5%;float:left;">This is the super header</p>
-      <p style="margin-right:5%;float:right;">Me</p>
+      <p style="margin-right:5%;float:right;">Me  {_.global.authStatus}</p>
       </nav>
     </div>
     <script>
       let self = this;
-      self.global = self.global || {}
-      // todo :: state shall be shared from single location
-      self.global.state = {me:'saurshaz',userId:'',userPassword:''}
-      self._ = self.global.state
+      self.state = state
+      self._ = self.state
 
 
       self.on('mount', function() {

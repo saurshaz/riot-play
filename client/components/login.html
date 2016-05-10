@@ -4,10 +4,11 @@ import riot from 'riot'
 
 import handlers from '../event-manager/handlers'
 import events from '../event-manager/events'
+import state from '../event-manager/state'
 
 <login>
     <div class="section" style="margin-left:20%;padding-top:5%;width: 30%;vertical-align: middle;">
-      <section id="messageSection">Auth status is {_.authStatus}</section>
+      <section id="messageSection">Auth status is {_.global.authStatus}</section>
       <input type="text" id="userid" placeholder="User Id" value="{_.userId}">
       <input id="password" type="password" placeholder="Password" value="{_.userPassword}" >  
       <button id="submitLogin">Login</button>
@@ -15,10 +16,8 @@ import events from '../event-manager/events'
     </div>
     <script>
       let self = this;
-      self.global = self.global || {}
-      // todo :: state shall be shared from single location
-      self.global.state = {me:'saurshaz',userId:'',userPassword:''}
-      self._ = self.global.state
+      self.state = state
+      self._ = self.state
 
 
       self.on('mount', function() {
