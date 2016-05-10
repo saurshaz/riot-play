@@ -2,6 +2,9 @@ import riot from 'riot'
 import moment from 'momentjs'
 import EVT from '../../state-manager/event_constants' 
 
+import handlers from '../../state-manager/handlers'
+import events from '../../state-manager/events'
+
 <login>
     <link href="http://materializecss.com/css/prism.css" rel="stylesheet">
     <link href="http://materializecss.com/css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
@@ -22,92 +25,25 @@ import EVT from '../../state-manager/event_constants'
     self._ = self.global.state
 
 
-    let filterData = (passedValues) => {
-      let passData = {}
-        for(let i in passedValues){
-          if(passedValues[i]['type'] === 'dom'){
-            passData[passedValues[i]['key']] = self.root.querySelector(passedValues[i]['selector'])['value']   
-          }
-        }
-      return passData
-    }
-
-    let events_array = {
-                          login:[
-                                  {
-                                    selector:'button#submitLogin',
-                                    event:'click',
-                                    signal:'',
-                                    handler:'user.handleLogin',
-                                    state:self._,
-                                    passedValues:[{
-                                      type: 'dom',
-                                      key : 'userId',
-                                      selector : 'input#userid',
-                                    },{
-                                      type: 'dom',
-                                      key : 'userPassword',
-                                      selector : 'input#password',
-                                    }]
-                                  },
-                                  {
-                                    selector:'button#resetLogin',
-                                    event:'click',
-                                    signal:'',
-                                    handler:'user.handleResetLogin',
-                                    state:self._,
-                                    passedValues:[]
-                                  }
-                                ]
-                        }   
-
-
-    // TODO :: HANDLER OBJECT
-    self.handlers = {}
-    self.handlers.user = {}
-    self.handlers.user.handleLogin = function (data,cb,event) {
-      data = filterData(data)
-      console.log(this)
-      if(data.userId === 'saurshaz' && data.userPassword === 'password'){
-        this.userId === ' ' 
-        this.userPassword === ' '
-        this.authStatus = true
-        this.me = data.userId
-      }else{
-        this.authStatus = false
-      }
-
-      this.authStatus = this.authStatus ? 'logged In' : ' Logged Out'
-      cb(null,this)
-    }
-
-    self.handlers.user.handleResetLogin = function (data,cb,event) {
-      data = filterData(data)
-      this.userId = ' ' 
-      this.userPassword = ' '
-      this.authStatus = false
-      this.authStatus = this.authStatus ? 'logged In' : ' Logged Out'
-      console.log(this)
-      cb(null,this)
-    }
-
-
-    // setTimeout(function() {
-    //   // riot.control.trigger(EVT.INIT_CHAT_CONTAINER, {'a':'b'});
-    // }, 2500);
     self.on('mount', function() {
-      // TODO :: TAKE THIS TO A CENTRAL PLACE (CONFIG THIS IS)
-      
       // riot.mount('*')
-      for(let idx in events_array['login']){
-        let event_json = events_array['login'][idx]
-        let handler = event_json.handler.split('.')[1]
-        let handlerObj = event_json.handler.split('.')[0]
-        self.root.querySelector(event_json.selector).addEventListener(event_json.event, self.handlers[handlerObj][handler].bind(self._,event_json.passedValues, (err,result) => {
-          self.update()
-          console.log('err -> ',err, ' result-> ',self._)
-        }))
+      let domain = self.opts.domain
+      let page = self.opts.page
+
+      debugger;
+
+      if(domain && page){
+        for(let idx in events[page]){
+          let event_json = events[page][idx]
+          let handler = event_json.handler
+          
+          self.root.querySelector(event_json.selector).addEventListener(event_json.event, handlers[page][handler].bind(self._,event_json.passedValues, (err,result) => {
+            self.update()
+            console.log('err -> ',err, ' result-> ',self._)
+          }))
+        }
       }
+
     })
   </script>
 </login>

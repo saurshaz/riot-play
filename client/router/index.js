@@ -30,7 +30,10 @@ function processorFilter (request, response, next) {
   }
   try {
     require('../components/home/' + view + '.html')
-    riot.mount('#app', view)
+    // domain='user' page='login'
+    debugger
+    let options = {domain: 'user',page: 'login'}
+    riot.mount('#app', view, options)
     // we need this to easily check the current route from every component
     riot.routeState = {
       view: ''
