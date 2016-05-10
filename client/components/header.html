@@ -4,20 +4,27 @@ import riot from 'riot'
 
 import handlers from '../event-manager/handlers'
 import events from '../event-manager/events'
-import state from '../event-manager/state'
+import store from '../event-manager/store'
+import PubSub from '../../public/scripts/pubsub.js'
 
 <header>
     <div class="section top-nav fixed" style="    margin-left: 15%;">
       <nav id="messageSection">
       <p style="margin-left:5%;float:left;">This is the super header</p>
-      <p style="margin-right:5%;float:right;">Me  {_.global.authStatus}</p>
+      <p style="margin-right:5%;float:right;">Me  {_.user.authStatus}</p>
       </nav>
     </div>
     <script>
-      let self = this;
-      self.state = state
+      let self = this
+      self.state = store.init()
       self._ = self.state
 
+      // todo :: make this move into a mixin which takes in an array of all that is watched and updates self._ as needed (do minimal merging based on data needed) instead of assigning
+      PubSub.subscribe('user_updated', (data) => {
+        console.log(' update data >>> ',data)
+        self['_'][data.module][data.key]=data.val
+        self.update()
+      })
 
       self.on('mount', function() {
         // riot.mount('*')
@@ -30,9 +37,9 @@ import state from '../event-manager/state'
             let event_json = events[page][idx]
             let handler = event_json.handler
             
-            self.root.querySelector(event_json.selector).addEventListener(event_json.event, handlers[page][handler].bind(self._,event_json.passedValues, (err,result) => {
+            self.root.querySelector(event_json.selector).addEventListener(event_json.event, handlers[page][handler].bind(self._,event_json.passedValues, store, (err,result) => {
               self.update()
-              console.log('err -> ',err, ' result-> ',self._)
+              console.log('HEADER :: err -> ',err, ' result-> ',self._)
             }))
           }
         }

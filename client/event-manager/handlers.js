@@ -13,31 +13,25 @@ let filterData = (passedValues) => {
   return passData
 }
 
-// TODO :: PIECE#2 HANDLER OBJECT, MAKE THIS PICKABLE FROM A DIFFERNT FILE
-handlers['login'].handleLogin = function (data, cb, event) {
+handlers['login'].handleLogin = function (data, store, cb, event) {
   data = filterData(data)
   console.log(this)
   if (data.userId === 'saurshaz' && data.userPassword === 'password') {
     this.userId === ' '
     this.userPassword === ' '
-    this.global = this.global || {}
-    this.global.authStatus = true
     this.me = data.userId
+    store.setState('user', 'authStatus', true)
   } else {
-    this.global.authStatus = false
+    store.setState('user', 'authStatus', false)
   }
-
-  this.authStatus = this.authStatus ? 'logged In' : ' Logged Out'
   cb(null, this)
 }
 
-handlers['login'].handleResetLogin = function (data, cb, event) {
+handlers['login'].handleResetLogin = function (data, store, cb, event) {
   data = filterData(data)
   this.userId = ' '
   this.userPassword = ' '
-  this.global = this.global || {}
-  this.global.authStatus = true
-  this.global.authStatus = this.global.authStatus ? 'logged In' : ' Logged Out'
+  store.setState('user', 'authStatus', false)
   console.log(this)
   cb(null, this)
 }
