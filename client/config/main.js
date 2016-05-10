@@ -8,5 +8,3 @@
 // import '../lib/mixins/riot-creator-mixin.js'
 console.log(' app kickstarted ')
 require(__dirname + '/../router/')
-var AppActions = require('../state-manager/actions')
-var AppStore = require('../state-manager/stores')

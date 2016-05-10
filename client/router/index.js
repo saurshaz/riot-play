@@ -1,19 +1,14 @@
-'use strict;'
+'use strict'
 
 import riot from 'riot'
 import router from 'riot-router'
-const projectName = window.location.pathname.slice(1) || 'home'
-// import AppStore from '../state-manager/app-store'
-// let appStore = new AppStore()
-// RiotControl.addStore(appStore)
-// riot.control = RiotControl
+import sidenav from '../components/sidenav.html'
+import header from '../components/header.html'
 
-let self = this
 window.location.hash = window.location.hash || '#home'
 
 // Redirect unlogged users to /login page
 function processorFilter (request, response, next) {
-  // TODO :: HOW CAN PAGES BE READ FROM CONFIGURATION ?
   let view = request.uri.slice(1)
   let extraParams = {domain: true, page: true}
   if (view.indexOf('/') !== -1) {
@@ -29,22 +24,16 @@ function processorFilter (request, response, next) {
     }
   }
   try {
-    require('../components/home/' + view + '.html')
-    let options = {domain: extraParams.domain, page: extraParams.page}
+    require('../components/' + view + '.html')
+    let options = {
+      domain: extraParams.domain,
+      page: extraParams.page
+    }
     riot.mount('#app', view, options)
     // we need this to easily check the current route from every component
     riot.routeState = {
       view: ''
     }
-
-  // if (extraParams.header !== 'false') {
-  //   require('../components/headertag.html')
-  //   riot.mount('#headertag', 'headertag')
-  // }
-  // if (extraParams.footer !== 'false') {
-  //   require('../components/footertag.html')
-  //   riot.mount('#footertag', 'footertag')
-  // }
   } catch (e) {
     console.log(' **** error in routing for view  >> ', view)
     console.log('details of error ', e)

@@ -1,0 +1,39 @@
+'use strict'
+
+import riot from 'riot'
+
+import handlers from '../event-manager/handlers'
+import events from '../event-manager/events'
+
+<header>
+    <div class="section top-nav fixed" style="    margin-left: 20%;">
+      <section id="messageSection">This is the super header</section>
+    </div>
+    <script>
+      let self = this;
+      self.global = self.global || {}
+      // todo :: state shall be shared from single location
+      self.global.state = {me:'saurshaz',userId:'',userPassword:''}
+      self._ = self.global.state
+
+
+      self.on('mount', function() {
+        // riot.mount('*')
+        let domain = self.opts.domain
+        let page = self.opts.page
+
+        // debugger;
+        if(domain && page){
+          for(let idx in events[page]){
+            let event_json = events[page][idx]
+            let handler = event_json.handler
+            
+            self.root.querySelector(event_json.selector).addEventListener(event_json.event, handlers[page][handler].bind(self._,event_json.passedValues, (err,result) => {
+              self.update()
+              console.log('err -> ',err, ' result-> ',self._)
+            }))
+          }
+        }
+      })
+    </script>
+</header>
