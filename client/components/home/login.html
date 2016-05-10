@@ -10,15 +10,15 @@ import EVT from '../../state-manager/event_constants'
   <!--  Parallax Section  -->
   <div class="section" style="padding:5%;width: 30%;vertical-align: middle;">
     <section id="messageSection">Auth status is {_.authStatus}</section>
-    <input type="text" id="userid" placeholder="User Id" value={_.userId}>
-    <input id="password" type="password" placeholder="Password" value={_.userPassword} >  
+    <input type="text" id="userid" placeholder="User Id" value="{_.userId}">
+    <input id="password" type="password" placeholder="Password" value="{_.userPassword}" >  
     <button id="submitLogin">Login</button>
     <button id="resetLogin">Reset</button>
   </div>
   <script>
     let self = this;
     self.global = self.global || {}
-    self.global.state = {me:'saurshaz'}
+    self.global.state = {me:'saurshaz',userId:'',userPassword:''}
     self._ = self.global.state
 
 
@@ -69,8 +69,8 @@ import EVT from '../../state-manager/event_constants'
       data = filterData(data)
       console.log(this)
       if(data.userId === 'saurshaz' && data.userPassword === 'password'){
-        this.userId === '' 
-        this.userPassword === ''
+        this.userId === ' ' 
+        this.userPassword === ' '
         this.authStatus = true
         this.me = data.userId
       }else{
@@ -83,11 +83,11 @@ import EVT from '../../state-manager/event_constants'
 
     self.handlers.user.handleResetLogin = function (data,cb,event) {
       data = filterData(data)
-      console.log(this)
-      this.userId === '' 
-      this.userPassword === ''
+      this.userId = ' ' 
+      this.userPassword = ' '
       this.authStatus = false
       this.authStatus = this.authStatus ? 'logged In' : ' Logged Out'
+      console.log(this)
       cb(null,this)
     }
 
@@ -103,13 +103,11 @@ import EVT from '../../state-manager/event_constants'
         let event_json = events_array['login'][idx]
         let handler = event_json.handler.split('.')[1]
         let handlerObj = event_json.handler.split('.')[0]
-        // debugger;
         self.root.querySelector(event_json.selector).addEventListener(event_json.event, self.handlers[handlerObj][handler].bind(self._,event_json.passedValues, (err,result) => {
-          console.log('err -> ',err, ' result-> ',self._)
           self.update()
+          console.log('err -> ',err, ' result-> ',self._)
         }))
       }
-      self.update()
     })
   </script>
 </login>
