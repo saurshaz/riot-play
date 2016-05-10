@@ -15,7 +15,7 @@ window.location.hash = window.location.hash || '#home'
 function processorFilter (request, response, next) {
   // TODO :: HOW CAN PAGES BE READ FROM CONFIGURATION ?
   let view = request.uri.slice(1)
-  let extraParams = {header: true, footer: true}
+  let extraParams = {domain: true, page: true}
   if (view.indexOf('/') !== -1) {
     // posOfSlash
     view = view.substring(0, (view.indexOf('/') || view.length))
@@ -30,9 +30,7 @@ function processorFilter (request, response, next) {
   }
   try {
     require('../components/home/' + view + '.html')
-    // domain='user' page='login'
-    debugger
-    let options = {domain: 'user',page: 'login'}
+    let options = {domain: extraParams.domain, page: extraParams.page}
     riot.mount('#app', view, options)
     // we need this to easily check the current route from every component
     riot.routeState = {
