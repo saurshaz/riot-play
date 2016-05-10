@@ -9,59 +9,86 @@ import EVT from '../../state-manager/event_constants'
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--  Parallax Section  -->
   <div class="section" style="padding:5%;width: 30%;vertical-align: middle;">
-    <section id="messageSection">Auth status is {global.state.authStatus}</section>
-    <input type="text" id="userid" placeholder="User Id" value='{global.state.userId}'>
-    <input id="password" type="password" placeholder="Password" value='{global.state.userPassword}''>  
+    <section id="messageSection">Auth status is {_.authStatus}</section>
+    <input type="text" id="userid" placeholder="User Id" value={_.userId}>
+    <input id="password" type="password" placeholder="Password" value={_.userPassword} >  
     <button id="submitLogin">Login</button>
     <button id="resetLogin">Reset</button>
   </div>
   <script>
     let self = this;
     self.global = self.global || {}
-    self.global.state = {authStatus:false,me:'saurshaz'}
+    self.global.state = {me:'saurshaz'}
+    self._ = self.global.state
 
-    // TODO :: TAKE THIS TO A CENTRAL PLACE (CONFIG THIS IS)
+
+    let filterData = (passedValues) => {
+      let passData = {}
+        for(let i in passedValues){
+          if(passedValues[i]['type'] === 'dom'){
+            passData[passedValues[i]['key']] = self.root.querySelector(passedValues[i]['selector'])['value']   
+          }
+        }
+      return passData
+    }
+
     let events_array = {
-                        login:[
-                                {
-                                  selector:'button#submitLogin',
-                                  event:'click',
-                                  signal:'',
-                                  handler:'user.handleLogin',
-                                  state:self.global.state,
-                                  passedData:{userId:self.global.state.userId, userPassword:self.global.state.userPassword}
-                                },
-                                {
-                                  selector:'button#resetLogin',
-                                  event:'click',
-                                  signal:'',
-                                  handler:'user.handleResetLogin',
-                                  state:self.global.state
-                                }
-                              ]
-                      }   
+                          login:[
+                                  {
+                                    selector:'button#submitLogin',
+                                    event:'click',
+                                    signal:'',
+                                    handler:'user.handleLogin',
+                                    state:self._,
+                                    passedValues:[{
+                                      type: 'dom',
+                                      key : 'userId',
+                                      selector : 'input#userid',
+                                    },{
+                                      type: 'dom',
+                                      key : 'userPassword',
+                                      selector : 'input#password',
+                                    }]
+                                  },
+                                  {
+                                    selector:'button#resetLogin',
+                                    event:'click',
+                                    signal:'',
+                                    handler:'user.handleResetLogin',
+                                    state:self._,
+                                    passedValues:[]
+                                  }
+                                ]
+                        }   
+
 
     // TODO :: HANDLER OBJECT
     self.handlers = {}
     self.handlers.user = {}
-    self.handlers.user.handleLogin = function (data,event,cb) {
+    self.handlers.user.handleLogin = function (data,cb,event) {
+      data = filterData(data)
       console.log(this)
       if(data.userId === 'saurshaz' && data.userPassword === 'password'){
         this.userId === '' 
         this.userPassword === ''
-        this.loggedIn = true
+        this.authStatus = true
         this.me = data.userId
+      }else{
+        this.authStatus = false
       }
 
-
+      this.authStatus = this.authStatus ? 'logged In' : ' Logged Out'
+      cb(null,this)
     }
 
-    self.handlers.user.resetLogin = function (data,event,cb) {
+    self.handlers.user.handleResetLogin = function (data,cb,event) {
+      data = filterData(data)
       console.log(this)
-      this.loggedIn = false
       this.userId === '' 
       this.userPassword === ''
-      this.loggedIn = false
+      this.authStatus = false
+      this.authStatus = this.authStatus ? 'logged In' : ' Logged Out'
+      cb(null,this)
     }
 
 
@@ -69,14 +96,18 @@ import EVT from '../../state-manager/event_constants'
     //   // riot.control.trigger(EVT.INIT_CHAT_CONTAINER, {'a':'b'});
     // }, 2500);
     self.on('mount', function() {
+      // TODO :: TAKE THIS TO A CENTRAL PLACE (CONFIG THIS IS)
+      
       // riot.mount('*')
       for(let idx in events_array['login']){
         let event_json = events_array['login'][idx]
         let handler = event_json.handler.split('.')[1]
         let handlerObj = event_json.handler.split('.')[0]
         // debugger;
-        self.update()
-        self.root.querySelector(event_json.selector).addEventListener(event_json.event, self.handlers[handlerObj][handler].bind(self.global.state,event_json.passedData))
+        self.root.querySelector(event_json.selector).addEventListener(event_json.event, self.handlers[handlerObj][handler].bind(self._,event_json.passedValues, (err,result) => {
+          console.log('err -> ',err, ' result-> ',self._)
+          self.update()
+        }))
       }
       self.update()
     })
