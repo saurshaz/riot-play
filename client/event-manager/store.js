@@ -2,9 +2,12 @@
 let PubSub = require('../../public/scripts/pubsub.js')
 // todo :: implement universal state here
 // make the change in needed JSOn and then emit an update change for that store
+
+// todo :: restrict property access without `setState`
 let state = {
-  global: {}, user: {}, misc: {}
+  global: {}, user: {authStatus: false}, misc: {}
 }
+
 module.exports = function () {
   return {
     init: function () {

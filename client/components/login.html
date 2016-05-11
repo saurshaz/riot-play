@@ -8,7 +8,7 @@ import store from '../event-manager/store'
 
 <login>
     <div class="section" style="margin-left:20%;padding-top:5%;width: 30%;vertical-align: middle;">
-      <section id="messageSection">Auth status is {_.user.authStatus}</section>
+      <section id="messageSection" style="margin-left:2%;background-color:yellow;">Auth status is {_.user.authStatus}</section>
       <input type="text" id="userid" placeholder="User Id" value="{_.userId}">
       <input id="password" type="password" placeholder="Password" value="{_.userPassword}" >  
       <button id="submitLogin">Login</button>
