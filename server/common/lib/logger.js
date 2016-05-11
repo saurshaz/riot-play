@@ -46,7 +46,7 @@ function errorSerializer (error) {
 }
 
 module.exports = bunyan.createLogger({
-  name: 'riotworld-service',
+  name: 'riotplay-service',
   level: process.env.LOG_LEVEL || 'info',
   serializers: {
     request: requestSerializer,

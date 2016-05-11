@@ -1,14 +1,14 @@
 #################################################
-## RIOT-DYNA (OR RIOT-FULLSTACK) ##
+## RIOT-PLAY                                   ##
 #################################################
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-
-
-
+---------------------------------------------
+### About the project
+---------------------------------------------
 Client Side ES6 has been the standard (app folder)
 Server side ES6 usage has been kept to minimal (actually i was also thinking whether i shall be doing this in ES5 only) for purposes of this to be useful to someone (in my team) or otherwise :-)
 
@@ -29,10 +29,9 @@ to start in stage
 - the webpack shall not be needed here, so a bundle shall already be generated and referred to in source code
 
 
----------------
-what it has ?
----------------
-- passportJS based social authentication
+---------------------------------------------
+### what it has ?
+---------------------------------------------
 - expressJS based backend 
 - socket.io based websockets implementation
 - mongo store based sesssion management
@@ -40,11 +39,11 @@ what it has ?
 - habitat based config management
 - riotJS based view layer
 - riot control based flux implementation
-- configuration based events handling
-- on-the-go components building
+- configuration based events handling (uses [![ves-flow](https://github.com/saurshaz/ves-flow/)])
+- on-the-go components building (using folder based routing and isolated `tester` component)
 - webpack based asset packaging
-- support polymer components (utilize the paper components along with riot coolness)
-- support polymer like materialCSS components
+- supports polymer components (utilize the paper components along with riot coolness)
+- supports polymer like materialCSS components
 - integrate mongo based backend also
 - a good neat responsive homepage(build from here)
 - riot-router based routing
@@ -58,11 +57,13 @@ what it has ?
 
 
 --------------------------------------------------------------------------------------------
+ ###  More
+ ------------------------------------------------------------------------------------------
  project structure can be like (with these special directories and files)
  (for anything that is non-editable .. use comments for now. in future, we may use a better strategy)
  (a linter may be built, based on regex to see if saved copy is good or not. best not to let wrong edit happen)
 --------------------------------------------------------------------------------------------
-	- server
+```	- server
 		- core (visible but non-editable to end-users)
 		 	- fn1 
 		 	- fn2
@@ -99,4 +100,4 @@ what it has ?
 	- ...
 
 
-
+```

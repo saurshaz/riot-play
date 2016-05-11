@@ -27,4 +27,4 @@ app.io.attach(server)
 // start websocket stuff
 sockets_stuff(app.io)
 
-log.info('started app at ', env.get('appHostname'), ' in ', env.get('NODE_ENV'))
+log.info('started app at ', env.get('APP_PORT'), ' in ', env.get('NODE_ENV'))

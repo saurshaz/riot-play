@@ -4,7 +4,7 @@ let express = require('express')
 let session = require('express-session')
 let bodyParser = require('body-parser')
 let cookieParser = require('cookie-parser')
-// let MongoStore = require('connect-mongo')(session)
+let MongoStore = require('connect-mongo')(session)
 let path = require('path')
 // let flash = require('express-flash')
 // let methodOverride = require('method-override')
@@ -44,7 +44,7 @@ module.exports = function (app) {
     cookie: {
       httpOnly: false
     },
-  // store: new MongoStore({ url: env.get('SESSIONS_DBURL'), autoReconnect: true})
+    store: new MongoStore({ url: env.get('SESSIONS_DBURL'), autoReconnect: true})
   // store: new RedisStore({ url: redis_url })
   }
 

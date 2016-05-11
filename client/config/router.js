@@ -24,7 +24,11 @@ function processorFilter (request, response, next) {
     }
   }
   try {
-    require('../components/' + view + '.html')
+    let projectName = request.uri.slice(1)
+    if (projectName)
+      require('../components/' + projectName + '/' + view + '.html')
+    else
+      require('../components/' + view + '.html')
     let options = {
       domain: extraParams.domain,
       page: extraParams.page
