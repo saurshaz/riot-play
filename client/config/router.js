@@ -24,7 +24,8 @@ function processorFilter (request, response, next) {
     }
   }
   try {
-    let projectName = request.uri.slice(1)
+    let projectName = document.location.pathname.slice(1)
+    debugger
     if (projectName)
       require('../components/' + projectName + '/' + view + '.html')
     else
