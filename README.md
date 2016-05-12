@@ -69,7 +69,7 @@ Jump to `http://localhost:6600/home#testapp?p=pane1&cid=appbrowser&a=b&c=d` for 
  (for anything that is non-editable .. use comments for now. in future, we may use a better strategy)
  (a linter may be built, based on regex to see if saved copy is good or not. best not to let wrong edit happen)
 --------------------------------------------------------------------------------------------
-```	- server
+	- server
 		- core (visible but non-editable to end-users)
 		 	- fn1 
 		 	- fn2
@@ -106,4 +106,4 @@ Jump to `http://localhost:6600/home#testapp?p=pane1&cid=appbrowser&a=b&c=d` for 
 	- ...
 
 
-```
+
