@@ -1,9 +1,9 @@
 {
-  "name": "riot-dyna",
+  "name": "riot-play",
   "description": "Riot Sample Starter App Template",
-  "repository": "https://github.com/saurshaz/riot-dyna",
+  "repository": "https://github.com/saurshaz/riot-play",
   "logo": "https://node-js-sample.herokuapp.com/node.svg",
-  "keywords": ["node", "express", "static", "riot","riotcontrol", "webpack", "mongodb"],
+  "keywords": ["node", "express", "static", "riot","ves-flow", "webpack", "mongodb"],
   "addons" : [
   	"mongohq"
   ]

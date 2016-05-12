@@ -8,7 +8,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['Appler'],
+  app_name: ['Riot-Play'],
   /**
    * Your New Relic license key.
    */

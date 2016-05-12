@@ -1,41 +1,23 @@
 {
-  "name": "riot-applyx",
+  "name": "riot-play",
   "version": "0.0.1",
-  "description": "riot + riotcontrol + express + websockets + passportJS goodness",
+  "description": "riot + ves-flow + express + websockets goodness",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:saurshaz/riot-applyx"
+    "url": "git@github.com:saurshaz/riot-play"
   },
-  "homepage": "https://github.com/saurshaz/riot-applyx",
+  "homepage": "https://github.com/saurshaz/riot-play",
   "keywords": [
     "riot",
-    "isomorphic",
-    "universal",
     "starter",
     "boilerplate",
     "template",
     "webpack",
-    "riotcontrol"
+    "ves-flow"
   ],
   "main": "index.js",
   "scripts": {
-    "build-static": "node ./node_modules/better-npm-run build-static",
-    "build-static-dev": "node ./node_modules/better-npm-run build-static-dev",
-    "build-babel": "./node_modules/babel src --out-dir build --presets es2015-node4,stage-2 --ignore client",
-    "build-clean": "node ./node_modules/better-npm-run build-clean",
-    "build-copy": "node ./node_modules/better-npm-run build-copy",
-    "build-webpack": "./node_modules/webpack --verbose --colors --display-error-details --config webpack.config.production.js",
-    "build": "./node_modules/.bin/webpack --progress --colors --config ./webpack/webpack.config.js",
-    "startp": "./node_modules/parallelshell --kill-others \"npm run start-prod\"",
-    "start-prod": "node ./node_modules/better-npm-run start-prod",
-    "start-dev": "node ./node_modules/better-npm-run start-dev | ./node_modules/bunyan/bin/bunyan",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "devh": "LOG_LEVEL=info NODE_ENV=development node server/dev-server.js",
-    "watch": "./node_modules/.bin/webpack --watch --progress --config ./webpack/webpack.config.js",
-    "browsersync": "./node_modules/.bin/browser-sync start --server --files './dist/**/*, app/**/*' --startPath app",
-    "sl": "sh ./sh/make-symlinks.sh",
-    "start": "./node_modules/.bin/parallelshell 'npm run serve' 'npm run dev'",
     "client": "sh riotserve.sh",
     "server": "LOG_LEVEL=info NODE_ENV=development nodemon -w server server/index.js"
   },
@@ -70,7 +52,7 @@
     "webpack-hot-middleware": "2.6.0"
   },
   "engines": {
-    "node": "5.2.0"
+    "node": "6.1.0"
   },
   "dependencies": {
     "body-parser": "^1.9.3",
@@ -83,17 +65,14 @@
     "express": "^4.13.4",
     "express-nunjucks": "^1.0.0",
     "express-session": "^1.10.2",
-    "expressr": "0.0.5",
     "file-loader": "^0.8.5",
     "habitat": "^3.1.2",
     "hoek": "^3.0.4",
-    "momentjs": "^1.0.4",
     "mongodb": "^2.1.18",
     "mongoskin": "^2.0.3",
     "ramda": "^0.21.0",
     "riot": "^2.3.13",
     "riot-router": "^0.7.3",
-    "riotcontrol": "0.0.1",
     "socket.io": "^1.3.7",
     "superagent": "^1.6.1"
   }
