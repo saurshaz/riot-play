@@ -29,6 +29,12 @@ to start in stage
 - the webpack shall not be needed here, so a bundle shall already be generated and referred to in source code
 
 
+Jump to `http://localhost:6600/home#home` for demo home page
+![Demo](/demo.gif)
+
+
+Jump to `http://localhost:6600/home#testapp?p=pane1&cid=appbrowser&a=b&c=d` for testapp page
+![Demo](/demo2.gif)
 ---------------------------------------------
 ### what it has ?
 ---------------------------------------------

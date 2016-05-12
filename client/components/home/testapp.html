@@ -29,9 +29,9 @@ import EVT from '../../event-manager/event_constants'
   </section>
   <script>
     let self = this;
-    setTimeout(function() { 
-      riot.control.trigger(EVT.INIT_CHAT_CONTAINER, {"a":"b"});
-    }, 2500);
+    // setTimeout(function() { 
+    //   riot.control.trigger(EVT.INIT_CHAT_CONTAINER, {"a":"b"});
+    // }, 2500);
 
     self.on('mount',function() {
       // TODO :: RM THE HARDCODING, MOVE TO A CONFIG FILE
@@ -60,7 +60,7 @@ import EVT from '../../event-manager/event_constants'
 
           if(neededDataObject.cid && neededDataObject.p){
             // pane and component id both specified
-            var mytag = require('./'+neededDataObject.cid+'.tag')
+            var mytag = require('./'+neededDataObject.cid+'.html')
             var tags =riot.mount('#'+neededDataObject.p, neededDataObject.cid)
             // riot.render(mytag, extraDataObject)
             //self.tick = function () {

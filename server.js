@@ -21,7 +21,7 @@ require('./server/common/express')(app)
 
 // Bootstrap routes
 require('./server/common/routes')(app)
-let server = app.listen(app.get('port'))
+let server = app.listen(app.get('APP_PORT') || 6600)
 app.io.attach(server)
 
 // start websocket stuff
