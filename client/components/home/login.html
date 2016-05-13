@@ -5,8 +5,8 @@ import StoreWatcher from '../../event-manager/mixins/storex'
 <login>
     <div class="section" style="margin-left:20%;padding-top:5%;width: 30%;vertical-align: middle;">
       <section id="messageSection" style="margin-left:2%;background-color:yellow;">Auth status is {_.user.authStatus}</section>
-      <input type="text" id="userid" placeholder="User Id" value="{_.userId}">
-      <input id="password" type="password" placeholder="Password" value="{_.userPassword}" >
+      <input type="text" id="userid" placeholder="User Id" onblur={validate} value='{_.user.userId}'>
+      <input id="password" type="password" placeholder="Password" value='{_.user.userId}' onblur={validate}>
       <!-- todo :: use case repeat password use case -->
       <button id="submitLogin">Login</button>
       <button id="resetLogin">Reset</button>
@@ -15,5 +15,30 @@ import StoreWatcher from '../../event-manager/mixins/storex'
       let self = this
       self.stores = ['user']
       self.mixin(StoreWatcher)
+
+      self.on('mount',() => {
+        self.validate()
+      })
+
+      validate(){
+        let userInput = self.root.querySelector('#userid')
+        let passwordInput = self.root.querySelector('#password')
+        // todo :: use a validation lib here
+        if(!userInput.value || !userInput.value.trim()){
+          userInput.style = 'border-bottom-color:red;'
+          self.update()
+        }else{
+          userInput.style = 'border-bottom-color:green;'
+          self.update() 
+        }
+
+        if(!passwordInput.value || !passwordInput.value.trim()){
+          passwordInput.style = 'border-bottom-color:red;'
+          self.update()
+        }else{
+          passwordInput.style = 'border-bottom-color:green;'
+          self.update() 
+        }
+      }
     </script>
 </login>

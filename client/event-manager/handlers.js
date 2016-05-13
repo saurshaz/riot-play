@@ -17,11 +17,14 @@ handlers['login'].handleLogin = function (data, store, cb, event) {
   data = filterData(data, 'login')
   console.log(this)
   if (data.userId === 'saurshaz' && data.userPassword === 'password') {
-    this.userId === ' '
-    this.userPassword === ' '
-    this.me = data.userId
+    store.setState('user', 'userId', '')
+    store.setState('user', 'userPassword', '')
+    store.setState('user', 'me', data.userId)
     store.setState('user', 'authStatus', true)
   } else {
+    store.setState('user', 'userId', data.userId)
+    store.setState('user', 'userPassword', data.userPassword)
+    store.setState('user', 'me', data.userId)
     store.setState('user', 'authStatus', false)
   }
   cb(null, this)
@@ -29,8 +32,8 @@ handlers['login'].handleLogin = function (data, store, cb, event) {
 
 handlers['login'].handleResetLogin = function (data, store, cb, event) {
   data = filterData(data)
-  this.userId = ' '
-  this.userPassword = ' '
+  store.setState('user', 'userId', '')
+  store.setState('user', 'userPassword', '')
   store.setState('user', 'authStatus', false)
   console.log(this)
   cb(null, this)
