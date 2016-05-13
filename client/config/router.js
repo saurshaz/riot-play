@@ -2,8 +2,6 @@
 
 import riot from 'riot'
 import router from 'riot-router'
-import sidenav from '../components/sidenav.html'
-import header from '../components/header.html'
 
 window.location.hash = window.location.hash || '#home'
 

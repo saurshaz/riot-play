@@ -6,7 +6,8 @@ import StoreWatcher from '../../event-manager/mixins/storex'
     <div class="section" style="margin-left:20%;padding-top:5%;width: 30%;vertical-align: middle;">
       <section id="messageSection" style="margin-left:2%;background-color:yellow;">Auth status is {_.user.authStatus}</section>
       <input type="text" id="userid" placeholder="User Id" onblur={validate} value='{_.user.userId}'>
-      <input id="password" type="password" placeholder="Password" value='{_.user.userId}' onblur={validate}>
+      <input id="password" type="password" placeholder="Password" value='{_.user.userPassword}' onblur={validate}>
+      <input id="repeatPassword" type="password" placeholder="Password Again" value='{_.user.userId}' onblur={validate}>
       <!-- todo :: use case repeat password use case -->
       <button id="submitLogin">Login</button>
       <button id="resetLogin">Reset</button>
@@ -23,7 +24,10 @@ import StoreWatcher from '../../event-manager/mixins/storex'
       validate(){
         let userInput = self.root.querySelector('#userid')
         let passwordInput = self.root.querySelector('#password')
+        let repeatPasswordInput = self.root.querySelector('#repeatPassword')
+        
         // todo :: use a validation lib here
+        //  add messages also, display messages at a common place
         if(!userInput.value || !userInput.value.trim()){
           userInput.style = 'border-bottom-color:red;'
           self.update()
@@ -33,11 +37,20 @@ import StoreWatcher from '../../event-manager/mixins/storex'
         }
 
         if(!passwordInput.value || !passwordInput.value.trim()){
-          passwordInput.style = 'border-bottom-color:red;'
-          self.update()
+            passwordInput.style = 'border-bottom-color:red;'
+            self.update()
         }else{
-          passwordInput.style = 'border-bottom-color:green;'
-          self.update() 
+          if(!repeatPasswordInput.value || !repeatPasswordInput.value.trim()){
+            repeatPasswordInput.style = 'border-bottom-color:red;'
+            self.update()
+          }else if(repeatPasswordInput.value.trim() !== repeatPasswordInput.value.trim()){
+            repeatPasswordInput.style = 'border-bottom-color:red;'
+            self.update()
+          }else{
+            passwordInput.style = 'border-bottom-color:green;'
+            repeatPasswordInput.style = 'border-bottom-color:green;'
+            self.update() 
+          }
         }
       }
     </script>

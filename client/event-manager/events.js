@@ -13,10 +13,14 @@ eventsConfig.setupEvents = (context) => {
     for (let idx in eventsConfig[page]) {
       let event_json = eventsConfig[page][idx]
       let handler = event_json.handler
-      context.root.querySelector('[data-is="' + context.root.getAttribute('data-is') + '"] ' + event_json.selector).addEventListener(event_json.event, handlers[page][handler].bind(context._, event_json.passedValues, store, (err, result) => {
-        context.update()
-        console.log('err -> ', err, ' result-> ', context._)
-      }))
+      context.root.addEventListener(event_json.event, (e) => {
+        if (e.target.nodeName === event_json.selector.nodename && e.target.id === event_json.selector.nodeid) {
+          handlers[page][handler].call(context._, event_json.passedValues, store, (err, result) => {
+            context.update()
+            console.log('err -> ', err, ' result-> ', context._)
+          })
+        }
+      })
     }
   }
 }
@@ -24,28 +28,32 @@ eventsConfig.setupEvents = (context) => {
 // login components config
 eventsConfig.login = []
 eventsConfig.login.push({
-  selector: 'button#submitLogin',
+  selector: {
+    nodename: 'BUTTON',
+    nodeid: 'submitLogin'
+  },
   event: 'click',
   signal: '',
   handler: 'handleLogin',
-  state: self._,
   passedValues: [{
     type: 'dom',
     key: 'userId',
-    selector: 'input#userid',
+    selector: 'input#userid'
   }, {
     type: 'dom',
     key: 'userPassword',
-    selector: 'input#password',
+    selector: 'input#password'
   }]
 })
 
 eventsConfig.login.push({
-  selector: 'button#resetLogin',
+  selector: {
+    nodename: 'BUTTON',
+    nodeid: 'resetLogin'
+  },
   event: 'click',
   signal: '',
   handler: 'handleResetLogin',
-  state: self._,
   passedValues: []
 })
 
