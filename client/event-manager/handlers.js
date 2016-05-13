@@ -3,18 +3,18 @@
 var handlers = {}
 handlers['login'] = {}
 
-let filterData = (passedValues) => {
+let filterData = (passedValues, module) => {
   let passData = {}
   for (let i in passedValues) {
     if (passedValues[i]['type'] === 'dom') {
-      passData[passedValues[i]['key']] = document.querySelector('[data-is="login"] ' + passedValues[i]['selector'])['value']
+      passData[passedValues[i]['key']] = document.querySelector('[data-is="' + module + '"] ' + passedValues[i]['selector'])['value']
     }
   }
   return passData
 }
 
 handlers['login'].handleLogin = function (data, store, cb, event) {
-  data = filterData(data)
+  data = filterData(data, 'login')
   console.log(this)
   if (data.userId === 'saurshaz' && data.userPassword === 'password') {
     this.userId === ' '

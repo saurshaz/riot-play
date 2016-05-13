@@ -1,7 +1,5 @@
 'use strict'
-let PubSub = require('../../public/scripts/pubsub.js')
-// todo :: implement universal state here
-// make the change in needed JSOn and then emit an update change for that store
+let PubSub = require('./pubsub.js')
 
 // todo :: restrict property access without `setState`
 let state = {
@@ -15,6 +13,7 @@ module.exports = function () {
     },
     setState: function (module, key, val) {
       state[module][key] = val
+      console.log('state is -> ', state)
       PubSub.publish(module + '_updated', {module: module,key: key,val: val, state: state})
     },
     getState: function (storeName_key) {
