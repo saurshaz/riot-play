@@ -17,9 +17,17 @@ import StoreWatcher from '../../event-manager/mixins/storex'
     </div>
     <script>
       let self = this
-      let userInput,passwordInput,repeatPasswordInput
+
+      // for validations
+      //  - add a validationform
+      //  - add a validate function in the handlers['<tag-name>'] section to set result
+      //                into state.<store>.<validationform>.validated property
       self.stores = ['user'] // stores to watch
       self.validationform = ['loginform'] // validation form . this will have validated field
+
+      // for store watching
+      // import StoreWatcher from ../../event-manager/mixins/storex
+      // self.mixin(StoreWatcher)
       self.mixin(StoreWatcher)
     </script>
 </login>

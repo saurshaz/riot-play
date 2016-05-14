@@ -22,7 +22,7 @@ function processorFilter (request, response, next) {
     }
   }
   try {
-    let projectName = document.location.pathname.slice(1)
+    let projectName = document.location.pathname.slice(1) || 'home'
     if (projectName)
       require('../components/' + projectName + '/' + view + '.html')
     else

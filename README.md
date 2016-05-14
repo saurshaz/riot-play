@@ -60,6 +60,35 @@ Jump to `http://localhost:6600/home#testapp?p=pane1&cid=appbrowser&a=b&c=d` for 
 - auth with passport & then jwt token generation (which can be used to manage any REST calls non-dependent on session)
 
 
+--------------------------------------------------------------------------------------------
+#### How a component logic looks ?
+--------------------------------------------------------------------------------------------
+```
+	import StoreWatcher from '../event-manager/mixins/storex'
+
+	<comp1>
+		<div>
+			<p> Hello World </p>
+			.... ... 
+		</div>
+	</comp1>
+
+	 let self = this
+
+     // for validations
+     //  - add a validationform
+     //  - add a validate function in the handlers['<tag-name>'] section to set result
+     //                into state.<store>.<validationform>.validated property
+     self.stores = ['user'] // stores to watch
+     self.validationform = ['loginform'] // validation form . this will have validated field
+
+     // for store watching
+     // import StoreWatcher from ../../event-manager/mixins/storex
+     // self.mixin(StoreWatcher)
+     self.mixin(StoreWatcher)
+```
+
+
 
 
 --------------------------------------------------------------------------------------------

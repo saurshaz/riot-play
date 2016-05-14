@@ -20,7 +20,6 @@ module.exports = {
       self.stores.map((item, i) => {
         //  todo :: validation needed shall be fetched from module name
         PubSub.subscribe(item + '_updated', (data) => {
-
           for (let i in self.validationform) {
             if (data.key === self.validationform[i] && data.val.validated && data.val.validated === true) {
               PubSub.publish(identifier + '_setup_events', {context: self})

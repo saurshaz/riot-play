@@ -56,6 +56,28 @@ module.exports = function (app) {
     }
   }
 
+  // `http://localhost:6600/home?handler=hello&view=login&pid=home#home`
+  // this request will showcase `server` dynamism, as well as `client` dynamism
+  // `server` dynamism - base d on handler from querystring. view is also taken from the querystring
+  // `client` side dynamism is by routing to component named `view` from querystring, inside the foler named `home`
+  // `home` folder because we are on route `/home`. this also can be dynamized in future @todo
+  app.get('/home', function (req, res) {
+    res.cookie('appinit', 'true')
+
+    // TODO :: make it passable from PUT request instead of GET
+    // call a function
+    let input_data = { a: 'a_val', b: 'b_val' }
+    let fn_to_call = req.query.handler
+    let isJson = req.query.view ? true : false
+    let passedConfig = {
+      input_data: input_data,
+      fn_to_call: fn_to_call,
+      view_name: req.query.view || 'index',
+      isJsonOutput: isJson
+    }
+    renderWithServiceOutput(passedConfig, res)
+  })
+
   app.put('/', function (req, res) {
     res.cookie('appinit', 'true')
 
@@ -63,22 +85,6 @@ module.exports = function (app) {
     // call a function
     let input_data = req.body.input_data || { a: 'a_val', b: 'b_val' }
     let fn_to_call = req.body.fn_to_call || req.query.handler
-    let passedConfig = {
-      input_data: input_data,
-      fn_to_call: fn_to_call,
-      view_name: 'index',
-      isJsonOutput: false
-    }
-    renderWithServiceOutput(passedConfig, res)
-  })
-
-  app.get('*', function (req, res) {
-    res.cookie('appinit', 'true')
-
-    // TODO :: make it passable from PUT request instead of GET
-    // call a function
-    let input_data = { a: 'a_val', b: 'b_val' }
-    let fn_to_call = req.query.handler
     let passedConfig = {
       input_data: input_data,
       fn_to_call: fn_to_call,
