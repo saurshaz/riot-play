@@ -19,7 +19,7 @@ import StoreWatcher from '../../event-manager/mixins/storex'
       let self = this
       let userInput,passwordInput,repeatPasswordInput
       self.stores = ['user'] // stores to watch
-      self.validationform = 'loginform' // validation form . this will have validated field
+      self.validationform = ['loginform'] // validation form . this will have validated field
       self.mixin(StoreWatcher)
     </script>
 </login>
