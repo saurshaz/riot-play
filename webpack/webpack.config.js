@@ -3,7 +3,7 @@ var webpack = require('webpack')
 var outputPath = path.resolve(__dirname, '../dist')
 // process.env.HOST='188.166.230.193'
 var host = process.env.HOST || '0.0.0.0'
-var port = 8088 || parseInt(process.env.PORT, 10) // todo :: rm hardcoding
+var port = 8098 || parseInt(process.env.PORT, 10) // todo :: rm hardcoding
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 // postcss plugins
 var cssimport = require('postcss-import')

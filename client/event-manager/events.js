@@ -2,10 +2,12 @@
 
 import handlers from './handlers'
 import store from './store'
+import PubSub from './pubsub'
 
 let eventsConfig = {}
-eventsConfig.setupEvents = (context) => {
+PubSub.subscribe('login' + '_setup_events', (data) => {
   // riot.mount('*')
+  let context = data.context
   let domain = context.opts.domain
   let page = context.opts.page
 
@@ -23,7 +25,21 @@ eventsConfig.setupEvents = (context) => {
       })
     }
   }
-}
+})
+
+PubSub.subscribe('login' + '_destroy_events', (data) => {
+  let context = data.context
+  let domain = context.opts.domain
+  let page = context.opts.page
+  if (domain && page) {
+    for (let idx in eventsConfig[page]) {
+      let event_json = eventsConfig[page][idx]
+      let handler = event_json.handler
+      context.root.removeEventListener(event_json.event) // todo :: test
+      context.update()
+    }
+  }
+})
 
 // login components config
 eventsConfig.login = []

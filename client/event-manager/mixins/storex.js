@@ -1,5 +1,6 @@
 'use strict'
 
+import handlers from '../handlers'
 import events from '../events'
 import store from '../store'
 import PubSub from '../pubsub'
@@ -13,17 +14,26 @@ module.exports = {
     let self = this
     self.state = store.init()
     self._ = self.state
-
+    let identifier = self.root.getAttribute('data-is')
     self.on('mount', function () {
       // todo : try to get this stores from init param only
       self.stores.map((item, i) => {
+        //  todo :: validation needed shall be fetched from module name
         PubSub.subscribe(item + '_updated', (data) => {
-          console.log(' update data >>> ', data)
+          if (data.key === self.validationform && data.val.validated && data.val.validated === true) {
+            PubSub.publish(identifier + '_setup_events', {context: self})
+          } else if (data.key === self.validationform && data.val.validated && data.val.validated !== true) {
+            PubSub.publish(identifier + '_destroy_events', {context: self})
+          }
+          console.debug(' update data >>> ', data)
           self['_'][data.module][data.key] = data.val
           self.update()
         })
       })
-      events.setupEvents(self)
     })
+
+    self.validate = () => {
+      handlers[identifier].validate.call(self, null, store, null, null)
+    }
   }
 }

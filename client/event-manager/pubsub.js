@@ -48,7 +48,7 @@
     var i = 0
     var j = 0
     var type = ''
-
+    console.debug('**** subscribe **** ', types , ' ---- ')
     // If `types` is not an array, make it one
     if (typeof types === 'string') {
       types = [types]
@@ -125,6 +125,8 @@
     var i = 0
     var j = 0
     var type = ''
+
+    console.debug('**** publish **** ', types , ' ---- ', data)
 
     // If `types` is not an array, make it one
     if (typeof types === 'string') {

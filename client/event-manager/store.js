@@ -3,7 +3,7 @@ let PubSub = require('./pubsub.js')
 
 // todo :: restrict property access without `setState`
 let state = {
-  global: {}, user: {authStatus: false, userId: '', userPassword: ''}, misc: {}
+  global: {}, user: {authStatus: false, userId: '', userPassword: '', loginform: {validated: false}}, misc: {}
 }
 
 module.exports = function () {
@@ -12,18 +12,17 @@ module.exports = function () {
       return state
     },
     setState: function (module, key, val) {
+      // if (!module && key)
+      //   state[key] = val
+      // else
       state[module][key] = val
       console.log('state is -> ', state)
       PubSub.publish(module + '_updated', {module: module,key: key,val: val, state: state})
     },
-    getState: function (storeName_key) {
-      if (!storeName_key) {
-        return state
+    getState: function (module, key) {
+      if (!module || !key) {
+        return undefined
       }
-
-      // make the change in needed JSOn and then emit an update change for that store
-      let module = storeName_key.split('.')[0]
-      let key = storeName_key.split('.')[1]
       return state[module][key]
     },
     register: function (storeName_key, val) {

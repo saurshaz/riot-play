@@ -9,49 +9,17 @@ import StoreWatcher from '../../event-manager/mixins/storex'
       <input id="password" type="password" placeholder="Password" value='{_.user.userPassword}' onblur={validate}>
       <input id="repeatPassword" type="password" placeholder="Password Again" value='{_.user.userId}' onblur={validate}>
       <!-- todo :: use case repeat password use case -->
-      <button id="submitLogin">Login</button>
-      <button id="resetLogin">Reset</button>
+      <div if={_.user.loginform.validated}>
+        <button id="submitLogin">Login</button>
+      </div>
+      <button id="resetLogin" onclick={resetHandler}>Reset</button>
+
     </div>
     <script>
       let self = this
-      self.stores = ['user']
+      let userInput,passwordInput,repeatPasswordInput
+      self.stores = ['user'] // stores to watch
+      self.validationform = 'loginform' // validation form . this will have validated field
       self.mixin(StoreWatcher)
-
-      self.on('mount',() => {
-        self.validate()
-      })
-
-      validate(){
-        let userInput = self.root.querySelector('#userid')
-        let passwordInput = self.root.querySelector('#password')
-        let repeatPasswordInput = self.root.querySelector('#repeatPassword')
-        
-        // todo :: use a validation lib here
-        //  add messages also, display messages at a common place
-        if(!userInput.value || !userInput.value.trim()){
-          userInput.style = 'border-bottom-color:red;'
-          self.update()
-        }else{
-          userInput.style = 'border-bottom-color:green;'
-          self.update() 
-        }
-
-        if(!passwordInput.value || !passwordInput.value.trim()){
-            passwordInput.style = 'border-bottom-color:red;'
-            self.update()
-        }else{
-          if(!repeatPasswordInput.value || !repeatPasswordInput.value.trim()){
-            repeatPasswordInput.style = 'border-bottom-color:red;'
-            self.update()
-          }else if(repeatPasswordInput.value.trim() !== repeatPasswordInput.value.trim()){
-            repeatPasswordInput.style = 'border-bottom-color:red;'
-            self.update()
-          }else{
-            passwordInput.style = 'border-bottom-color:green;'
-            repeatPasswordInput.style = 'border-bottom-color:green;'
-            self.update() 
-          }
-        }
-      }
     </script>
 </login>
