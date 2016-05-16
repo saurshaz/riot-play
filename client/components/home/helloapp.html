@@ -1,14 +1,43 @@
 import riot from 'riot'
+import Fyler from '../js/Fyler'
 
 <helloapp>
   <section>
-    <rg-map></rg-map>
+    	
+		<div>
+			<p>request JSON is</p>
+			<p>{request}</p>
+		</div>
+		<div>
+			<p>response is</p>
+			<p>{response}</p>
+		</div>	
+		<div>
+			<p>Error is </p>
+			<p>{err}</p>
+		</div>	
   </section>
   <script>
     let self = this;
-    // setTimeout(function() {
-    //   riot.control.trigger(EVT.INIT_CHAT_CONTAINER, {"a":"b"});
-    // }, 2500);
-    
+    let original_json = {"my_name": "saurshaz"}
+
+    var requestjson = {
+      "config": {
+        "how": "sync",
+        "where": "server",
+        "lookat": "context"
+      },
+      "commands": [ {
+        "what": "utils",
+        "handler": "echo",
+        "input": original_json
+      } ]
+    }
+    self.request = JSON.stringify(requestjson)
+    Fyler.run(requestjson, function (err,res) {
+    	self.response = (typeof res != 'string') ? JSON.stringify(res) : res
+    	self.err = (typeof err != 'string') ? JSON.stringify(err)  : err 
+    	self.update()
+    })
   </script>
 </helloapp>

@@ -8,20 +8,18 @@ window.location.hash = window.location.hash || '#home'
 // Redirect unlogged users to /login page
 function processorFilter (request, response, next) {
   let view = request.uri.slice(1)
-  let extraParams = {domain: true, page: true}
-  if (view.indexOf('/') !== -1) {
-    // posOfSlash
-    view = view.substring(0, (view.indexOf('/') || view.length))
-    let replaced = request.uri.replace('/' + view + '/', '')
-    let arr = replaced.split('&')
-    for (var i = arr.length - 1; i >= 0; i--) {
-      if (arr[i].split('=') && arr[i].split('=').length === 2) {
-        var keyValArr = arr[i].split('=')
-        extraParams[keyValArr[0]] = (keyValArr[1]) || ''
-      }
+  let extraParams = {domain: true, page: true,pid: true}
+  var replaced = location.search.slice(1)
+  var arr = replaced.split('&')
+  for (var i = arr.length - 1; i >= 0; i--) {
+    if (arr[i].split('=') && arr[i].split('=').length === 2) {
+      var keyValArr = arr[i].split('=')
+      extraParams[keyValArr[0]] = keyValArr[1] || ''
     }
   }
+
   try {
+    view = extraParams.pid || view
     let projectName = document.location.pathname.slice(1) || 'home'
     if (projectName)
       require('../components/' + projectName + '/' + view + '.html')
