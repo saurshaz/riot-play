@@ -1,7 +1,7 @@
 import riot from 'riot'
 import Fyler from '../js/Fyler'
 
-<helloapp>
+<fylerclient>
   <section>
     	
 		<div>
@@ -19,25 +19,25 @@ import Fyler from '../js/Fyler'
   </section>
   <script>
     let self = this;
-    let original_json = {"my_name": "saurshaz"}
+    let original_json = {'my_name': 'saurshaz'}
 
     var requestjson = {
-      "config": {
-        "how": "sync",
-        "where": "server",
-        "lookat": "context"
+      'config': {
+        'how': 'sync',
+        'where': 'server',
+        'lookat': 'context'
       },
-      "commands": [ {
-        "what": "utils",
-        "handler": "echo",
-        "input": original_json
+      'commands': [ {
+        'what': 'utils',
+        'handler': 'echo',
+        'input': original_json
       } ]
     }
     self.request = JSON.stringify(requestjson)
     Fyler.run(requestjson, function (err,res) {
-    	self.response = (typeof res != 'string') ? JSON.stringify(res) : res
+    	self.response = res
     	self.err = (typeof err != 'string') ? JSON.stringify(err)  : err 
     	self.update()
     })
   </script>
-</helloapp>
+</fylerclient>
