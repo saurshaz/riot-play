@@ -1,5 +1,7 @@
-var riot = require('riot')
-//import EVT from '../../event-manager/event_constants' 
+
+import Fyler from '../js/Fyler'
+import R from 'ramda'
+import riot from 'riot'
 
 
 <appbrowser header='false' nofooter='false'>
@@ -64,8 +66,8 @@ var riot = require('riot')
 
         <!-- Dropdown Structure -->
         <ul id='app-selector' class='dropdown-content'>
-          <li each={ app_items }>
-            <a href="#!" data-appid={app_id} onclick={processAppSelect}>{app_name}</a>
+          <li each={ app_item in app_items }>
+            <a href="#!" data-appid={app_item._id} onclick={processAppSelect}>{app_item._id}</a>
           </li>
         </ul>
 
@@ -93,10 +95,12 @@ var riot = require('riot')
     self.selected_app_name = ''
     self.created_app = ''
     self.created_app_name = ''
+
+    // TODO :: GET THESE DYNAMICALLY AND MAKE THEM SECURE
+    let user_id = 'saurshaz@gmail.com' 
+    let appler_ac = 'saurshaz@gmail.com'
     
-    setTimeout(function() { 
-      //riot.control.trigger(EVT.INIT_CHAT_CONTAINER, {"a":"b"})
-    }, 2500)
+   
 
     self.on('mount',function() {
       //debugger;
@@ -106,13 +110,25 @@ var riot = require('riot')
 
 
       // test call to fyler
-      // debugger; 
-      // let Fyler = require('Fyler')
+      let fyler_config = {
+        'commands': [{
+          'what': 'fileio',
+          'handler': 'getMatchingFiles',
+          'listingpath': '/appler/' + user_id,
+          'group_by_column': 'metadata.project_id',
+          'user': user_id,
+          'token': appler_ac
+        }],
+        'config': {
+          'where': 'server',
+          'how': 'sync',
+          'lookat': 'context'
+        }
+      }
 
-      
-      setTimeout(function() {
-        // TODO :: ATTACH ANY 3rd party service to load data
-        self.app_items = [{app_name:'rioter-one',app_id:'1'},{app_name:'rioter-two',app_id:'2'},{app_name:'rioter-three',app_id:'3'}]
+      Fyler.run(fyler_config, function (err, results) {
+        
+        self.app_items = (results && results[0] && results[0][0]) || [{app_name:'rioter-one',app_id:'1'},{app_name:'rioter-two',app_id:'2'},{app_name:'rioter-three',app_id:'3'}]
         self.update()
         
          $('#app-selector').dropdown({
@@ -125,7 +141,53 @@ var riot = require('riot')
           alignment: 'left' // Displays dropdown with edge aligned to the left of button
         });
         
-      },1000)
+
+      })
+
+      // var url = function(user_id) {
+      //   return 'user/'+user_id+'/public/projects';
+      // }
+
+      // var _setProjects = function(data) {
+      //     //data = data.map(function(item,i){ return {_id : item[0]._id} })
+      //     self.app_items = data
+      //     self.noApp = (!self.app_items || (self.app_items.length === 0 ))
+      //     if(!self.noApp)  
+      //       self.app_items.unshift({_id:'Select an app'})
+      //     self.update()
+      // }
+  
+      // var jsonize = function(data) {
+      //     return data[0]
+      // }
+      
+      // var _initSelectIfNeeded = function(data){
+      //   if(!self.noApp){
+      //     let select = self.root.querySelector('#existingAppBtn')
+      //     let options = {
+      //       enablePagination: false,
+      //       removeFirstOptionFromSearch: true,
+      //       useFirstOptionTextAsPlaceholder: true,
+      //       placeholderText: self.selected_app_name,
+      //       noResultsMessage: self.selected_app_name,
+      //       onchange: function() {
+      //         console.log('You selected the ' + this.text + ' model.')
+      //       }
+      //     }
+      //     let barq = new Barq(select, options).init()
+      //   }
+      //   self.update()
+      // }
+
+     
+      
+      // var updateState = R.compose(_initSelectIfNeeded,_setProjects,jsonize)
+      // var getDataApp = R.compose(Utils.getJSON(updateState), url)
+
+     
+      
+       
+      
     })
     processAppSelect(e){
       let target =  e.target

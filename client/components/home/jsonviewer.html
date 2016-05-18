@@ -1,0 +1,109 @@
+
+import Fyler from '../js/Fyler'
+import R from 'ramda'
+import riot from 'riot'
+
+<!-- 
+  -[ ] add event-manager code to wire  events and common store storage (SESH)
+  -[ ] add call to `oneapi` and data back to storage (SESH)
+  -[ ] add jsonymer widget with the data that comes back (UI)
+  -[ ] add reusability to jsonymer
+  -[ ] add credentials-crud screen 
+  -[ ] add modal widget (button that brings up full-screen dialog)
+  -[ ] add pointfree code (in these 2 widhets jsonviewer and crud one)
+ -->
+
+
+<jsonviewer header='false' nofooter='false'>
+  <section>
+    <div class="section white container" id="container-app" style="">
+      <div>
+        
+       
+        <!-- Dropdown Structure -->
+        <ul id='app-selector'>
+          <li each={ app_item in app_items }>
+            <a href="#!" data-appid={app_item._id} onclick={processAppSelect}><p>{app_item._id}</p></a>
+          </li>
+        </ul>
+
+
+      </div>    
+    </div>
+  </section>
+  <script>
+    let self = this
+    self.mode = ''
+      
+    let user_id = 'saurshaz@gmail.com' 
+    let appler_ac = 'saurshaz@gmail.com'
+   
+    self.on('mount',function() {
+      // test call to fyler
+      let fyler_config = {
+        'commands': [{
+          'what': 'fileio',
+          'handler': 'getMatchingFiles',
+          'listingpath': '/appler/' + user_id,
+          'group_by_column': 'metadata.project_id',
+          'user': user_id,
+          'token': appler_ac
+        }],
+        'config': {
+          'where': 'server',
+          'how': 'sync',
+          'lookat': 'context'
+        }
+      }
+
+      Fyler.run(fyler_config, function (err, results) {
+        self.app_items = (results && results[0] && results[0][0]) || [{app_name:'rioter-one',app_id:'1'},{app_name:'rioter-two',app_id:'2'},{app_name:'rioter-three',app_id:'3'}]
+        self.update()
+      })
+    })
+      // var url = function(user_id) {
+      //   return 'user/'+user_id+'/public/projects';
+      // }
+
+      // var _setProjects = function(data) {
+      //     //data = data.map(function(item,i){ return {_id : item[0]._id} })
+      //     self.app_items = data
+      //     self.noApp = (!self.app_items || (self.app_items.length === 0 ))
+      //     if(!self.noApp)  
+      //       self.app_items.unshift({_id:'Select an app'})
+      //     self.update()
+      // }
+  
+      // var jsonize = function(data) {
+      //     return data[0]
+      // }
+      
+      // var _initSelectIfNeeded = function(data){
+      //   if(!self.noApp){
+      //     let select = self.root.querySelector('#existingAppBtn')
+      //     let options = {
+      //       enablePagination: false,
+      //       removeFirstOptionFromSearch: true,
+      //       useFirstOptionTextAsPlaceholder: true,
+      //       placeholderText: self.selected_app_name,
+      //       noResultsMessage: self.selected_app_name,
+      //       onchange: function() {
+      //         console.log('You selected the ' + this.text + ' model.')
+      //       }
+      //     }
+      //     let barq = new Barq(select, options).init()
+      //   }
+      //   self.update()
+      // }
+
+     
+      
+      // var updateState = R.compose(_initSelectIfNeeded,_setProjects,jsonize)
+      // var getDataApp = R.compose(Utils.getJSON(updateState), url)
+
+    
+
+
+
+  </script>
+</jsonviewer>

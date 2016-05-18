@@ -12,7 +12,7 @@ module.exports = {
     }).done(function (r) {
       console.log({
         'message': 'From Fyler - response',
-        'text': JSON.parse(r)
+        'text': r
       })
       cb(undefined, r)
     }).error(function (err) {

@@ -6,15 +6,14 @@ import Fyler from '../js/Fyler'
     	
 		<div>
 			<p>request JSON is</p>
-			<p>{request}</p>
+			<code>{request}</code>
 		</div>
-		<div>
+		<div if={response}>
 			<p>response is</p>
-			<p>{response}</p>
+			<code>{response}</code>
 		</div>	
-		<div>
-			<p>Error is </p>
-			<p>{err}</p>
+		<div if={err}>Error is </p>
+			<code>{err}</code>
 		</div>	
   </section>
   <script>

@@ -1,111 +1,55 @@
+<!--1st change -->
 <!doctype html>
 <html>
 
 <head>
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" media="screen,projection" />
-  <meta charset="UTF-8">
-  <title>Riot Starter Kit</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta http-equiv="imagetoolbar" content="no" />
-  <meta name="language" content="EN" />
-  <!--Import Google Icon Font-->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <script src="http://crossorigin.me/https://elements.polymer-project.org/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-    <link rel="import" href="http://crossorigin.me/https://elements.polymer-project.org/bower_components/iron-icon/iron-icon.html">
-    <link rel="import" href="http://crossorigin.me/https://elements.polymer-project.org/bower_components/iron-icons/iron-icons.html">
-    <link rel="import" href="http://crossorigin.me/https://elements.polymer-project.org/bower_components/iron-image/iron-image.html">
-    <link rel="import" href="http://crossorigin.me/https://elements.polymer-project.org/bower_components/iron-flex-layout/iron-flex-layout.html">
-    <link rel="import" href="http://crossorigin.me/https://elements.polymer-project.org/bower_components/iron-flex-layout/classes/iron-flex-layout.html">
-    <link rel="import" href="http://crossorigin.me/https://elements.polymer-project.org/bower_components/iron-pages/iron-pages.html">
-    <link rel="import" href="http://crossorigin.me/https://elements.polymer-project.org/bower_components/paper-button/paper-button.html">
-    <link rel="import" href="http://crossorigin.me/https://elements.polymer-project.org/bower_components/paper-checkbox/paper-checkbox.html">
-    <link rel="import" href="http://crossorigin.me/https://elements.polymer-project.org/bower_components/paper-material/paper-material.html">
-    <link rel="import" href="http://crossorigin.me/https://elements.polymer-project.org/bower_components/paper-styles/paper-styles.html">
-    <link rel="import" href="http://crossorigin.me/https://elements.polymer-project.org/bower_components/paper-styles/classes/global.html">
-    <link rel="import" href="http://crossorigin.me/https://elements.polymer-project.org/bower_components/paper-tabs/paper-tabs.html">
-    <link rel="import" href="http://crossorigin.me/https://elements.polymer-project.org/bower_components/paper-toggle-button/paper-toggle-button.html">
-    <link href="style.css" type="text/css">
-    <style is="custom-style">
-    :root {
-        --paper-tabs-selection-bar-color: var(--paper-light-blue-900);
-        --paper-tab-ink: var(--paper-light-blue-100);
-        --paper-tabs: {
-            color: white;
-            background-color: var(--paper-light-blue-500);
-        }
-        ;
-    }
-    </style>
-    <dom-module is="tabs-with-content-example">
-        <template>
-            <style include="paper-tabs-demo-styles"></style>
-            <style>
-            iron-pages {
-                border: 1px solid #ccc;
-                border-top: none;
-                padding: 8px;
-            }
-            </style>
-            <paper-tabs selected="{{selected}}" on-tap="select">
-                <paper-tab>Facebook</paper-tab>
-                <paper-tab>Twitter</paper-tab>
-                <paper-tab>LinkedIn</paper-tab>
-            </paper-tabs>
-            <iron-pages selected="{{selected}}">
-                <div data-id="1">CONTENT ONE</div>
-                <div data-id="2">CONTENT TWO</div>
-                <div data-id="3">CONTENT THREE</div>
-            </iron-pages>
-        </template>
-        <script>
-        Polymer({
-            is: 'tabs-with-content-example',
-            properties: {
-                selected: {
-                    type: Number,
-                    value: 0
-                }
-            },
-            select: function(e) {
-                console.log('eee >> ', e.target);
-            }
-        });
-        </script>
-    </dom-module>
+    <title>Welcome</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <!-- CSS-->
+     <link href="http://materializecss.com/css/prism.css" rel="stylesheet">
+    <link href="http://materializecss.com/css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <script src="/assets/build.js"></script> -->
+  
 </head>
 
-<body style=" ">
- 
-  <!-- APP LOADS HERE -->
-  <div class="section white" id="app" style="margin: 0;padding: 0;padding-bottom: 20;">
-  </div>
-  <script type="text/javascript" charset="utf-8" src="/assets/main.js"></script>
-  <!--Import jQuery before materialize.js-->
-  <script async="" src="//www.google-analytics.com/analytics.js"></script>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-  <script>
-  (function(i, s, o, g, r, a, m) {
-  i['GoogleAnalyticsObject'] = r;
-  i[r] = i[r] || function() {
-    (i[r].q = i[r].q || []).push(arguments)
-  }, i[r].l = 1 * new Date();
-  a = s.createElement(o),
-    m = s.getElementsByTagName(o)[0];
-  a.async = 1;
-  a.src = g;
-  m.parentNode.insertBefore(a, m)
-  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-  ga('create', 'UA-XXXXX-X', 'auto');
-  ga('send', 'pageview');
-  </script>
-  <script src="/socket.io.js"></script>
-  <script src="http://datejs.googlecode.com/svn/trunk/build/date.js"></script>
+<body class="parallax-demo">
+    <div id="superapp" style="margin: 0;padding: 0;padding-bottom: 20;">
+        <p>DEVELOPMENT VERSION</p>
+        <div id="app" style="margin: 0;padding: 0;padding-bottom: 20;">
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-XXXXX-X', 'auto');
+    ga('send', 'pageview');
+    </script>
+    <script src="/scripts/pubsub.js"></script>
+    <script src="/scripts/socket.io.js"></script>
+    <script>
+    if (!window.jQuery) {
+        document.write('<script src="http://materializecss.com/bin/jquery-2.1.1.min.js"><\/script>');
+    }
+    </script>
+    <!-- <script src="/assets/main.js"></script> -->
+     <script src="scripts/jquery.js"></script>
+    <script src="{{STATIC_RESOURCES_SERVER_ADDRESS}}/main.js"></script>
+    <script src="http://materializecss.com/bin/materialize.js"></script>
+    <script src="http://materializecss.com/js/init.js"></script>
 </body>
 
 </html>
