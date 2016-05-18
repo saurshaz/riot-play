@@ -4,17 +4,25 @@ import Fyler from '../js/Fyler'
 <fylerclient>
     <style>
       pre : {
-            position: relative;
-           font-size: 14px;
-           background-color: black;
-           text-decoration-color: yellow;
+          position: relative;
+          font-size: 14px;
+          background-color: black;
+          text-decoration-color: yellow;
+      }
+
+      .hidden {
+        display:none;
       }
     </style>	
   <section>
-		<div class='jsonrender'>
+		<div class='jsonrender' id='json_output_div'>
 			<p>request JSON is</p>
 			<pre>{request}</pre>
 		</div>
+    <div class='jsonrender hidden' id='json_change_div'>
+      <textarea id='requestId' style='margin: 0px; width: 383px; height: 210px;'>{request}</textarea>
+      <button onclick={changeRequest}>Make Change</button>
+    </div>
 		<div if={response} class='jsonrender'>
 			<p>response is</p>
 			<pre class='jsonrender'>{response}</pre>
@@ -22,7 +30,9 @@ import Fyler from '../js/Fyler'
 		<div if={err} class='jsonrender'>Error is </p>
 			<pre class='jsonrender'>{err}</pre>
 		</div>	
-    <button onclick={makeCall}>Make Call</button>
+    
+    <button id='makeCallBtn' onclick={makeCall}>Make Call</button>
+    <button id='changeRequestBtn' onclick={showChangeRequestForm}>Change Request</button>
   </section>
   <script>
     let self = this;
@@ -42,8 +52,24 @@ import Fyler from '../js/Fyler'
     }
     self.request = JSON.stringify(requestjson, null, 4)
 
-    self.on('mount',function(){
+    changeRequest(){
+      requestjson = JSON.parse(self.root.querySelector('#requestId').value)// todo :: validation of JSON as user types
+      self.request = JSON.stringify(requestjson, null, 4)
+      console.log(self.request)
+      self.root.querySelector('#json_change_div').style.display = 'none'
+      self.root.querySelector('#json_output_div').style.display = 'block'
+      self.root.querySelector('#changeRequestBtn').style.display = 'block'
+    }
 
+    showChangeRequestForm(){
+      self.root.querySelector('#json_change_div').style.display = 'block'
+      self.root.querySelector('#json_output_div').style.display = 'none'
+      self.root.querySelector('#changeRequestBtn').style.display = 'none'
+    }
+
+    self.on('mount',function(){
+      self.root.querySelector('#json_change_div').style.display = 'none'
+      self.root.querySelector('#json_output_div').style.display = 'block'
     })
     
     makeCall(){
