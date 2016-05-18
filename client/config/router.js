@@ -3,8 +3,6 @@
 import riot from 'riot'
 import router from 'riot-router'
 
-window.location.hash = window.location.hash || '#home'
-
 // Redirect unlogged users to /login page
 function processorFilter (request, response, next) {
   let view = request.uri.slice(1)

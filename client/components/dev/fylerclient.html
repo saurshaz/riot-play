@@ -2,19 +2,27 @@ import riot from 'riot'
 import Fyler from '../js/Fyler'
 
 <fylerclient>
+    <style>
+      pre : {
+            position: relative;
+           font-size: 14px;
+           background-color: black;
+           text-decoration-color: yellow;
+      }
+    </style>	
   <section>
-    	
-		<div>
+		<div class='jsonrender'>
 			<p>request JSON is</p>
-			<code>{request}</code>
+			<pre>{request}</pre>
 		</div>
-		<div if={response}>
+		<div if={response} class='jsonrender'>
 			<p>response is</p>
-			<code>{response}</code>
+			<pre class='jsonrender'>{response}</pre>
 		</div>	
-		<div if={err}>Error is </p>
-			<code>{err}</code>
+		<div if={err} class='jsonrender'>Error is </p>
+			<pre class='jsonrender'>{err}</pre>
 		</div>	
+    <button onclick={makeCall}>Make Call</button>
   </section>
   <script>
     let self = this;
@@ -32,11 +40,18 @@ import Fyler from '../js/Fyler'
         'input': original_json
       } ]
     }
-    self.request = JSON.stringify(requestjson)
-    Fyler.run(requestjson, function (err,res) {
-    	self.response = res
-    	self.err = (typeof err != 'string') ? JSON.stringify(err)  : err 
-    	self.update()
+    self.request = JSON.stringify(requestjson, null, 4)
+
+    self.on('mount',function(){
+
     })
+    
+    makeCall(){
+      Fyler.run( requestjson, function (err, res) {
+      	self.response = JSON.stringify(res, null, 4)
+      	self.err = (typeof err != 'string') ? JSON.stringify(err)  : err 
+      	self.update()
+      })
+    }
   </script>
 </fylerclient>
