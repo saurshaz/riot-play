@@ -14,17 +14,7 @@ eventsConfig.login.push({
     nodeid: 'submitLogin'
   },
   event: 'click',
-  signal: '',
-  handler: 'handleLogin',
-  passedValues: [{
-    type: 'dom',
-    key: 'userId',
-    selector: 'input#userid'
-  }, {
-    type: 'dom',
-    key: 'userPassword',
-    selector: 'input#password'
-  }]
+  handler: 'handleLogin'
 })
 
 eventsConfig.login.push({
@@ -33,9 +23,7 @@ eventsConfig.login.push({
     nodeid: 'resetLogin'
   },
   event: 'click',
-  signal: '',
-  handler: 'handleResetLogin',
-  passedValues: []
+  handler: 'handleResetLogin'
 })
 
 // fylerclient components config
@@ -46,9 +34,7 @@ eventsConfig.fylerclient.push({
     nodeid: 'fylerclient'
   },
   event: 'load',
-  signal: '',
   handler: 'onmount',
-  passedValues: []
 })
 
 eventsConfig.fylerclient.push({
@@ -57,9 +43,7 @@ eventsConfig.fylerclient.push({
     nodeid: 'makeCallBtn'
   },
   event: 'click',
-  signal: '',
   handler: 'makeCall',
-  passedValues: []
 })
 
 eventsConfig.fylerclient.push({
@@ -68,9 +52,7 @@ eventsConfig.fylerclient.push({
     nodeid: 'changeRequestBtn'
   },
   event: 'click',
-  signal: '',
   handler: 'showChangeRequestForm',
-  passedValues: []
 })
 
 eventsConfig.fylerclient.push({
@@ -79,9 +61,7 @@ eventsConfig.fylerclient.push({
     nodeid: 'btnChangeRequest'
   },
   event: 'click',
-  signal: '',
   handler: 'changeRequest',
-  passedValues: []
 })
 
 function setupEvents (data) {
@@ -95,9 +75,7 @@ function setupEvents (data) {
       let handler = event_json.handler
       context.root.addEventListener(event_json.event, (e) => {
         if (e.target.nodeName === event_json.selector.nodename && e.target.id === event_json.selector.nodeid) {
-          event_json.passedValues['page'] = page
-          event_json.passedValues['domain'] = domain
-          handlers[page][handler].call(context._, event_json.passedValues, store, (err, result) => {
+          handlers[page][handler].call(context._, {page: page, domain: domain}, store, (err, result) => {
             context.update()
             console.log('err -> ', err, ' result-> ', context._)
           })

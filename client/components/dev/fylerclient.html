@@ -18,18 +18,18 @@ import StoreWatcher from '../../event-manager/mixins/storex'
   <section>
 		<div class='jsonrender' id='json_output_div'>
 			<p>request JSON is</p>
-			<pre>{_.fylerclient.request}</pre>
+			<pre>{_.fyler.request}</pre>
 		</div>
     <div class='jsonrender hidden' id='json_change_div'>
-      <textarea id='requestId' style='margin: 0px; width: 383px; height: 210px;'>{_.fylerclient.request}</textarea>
+      <textarea id='requestId' style='margin: 0px; width: 383px; height: 210px;'>{_.fyler.request}</textarea>
       <button id='btnChangeRequest'>Make Change</button>
     </div>
-		<div if={_.fylerclient.response} class='jsonrender'>
+		<div if={_.fyler.response} class='jsonrender'>
 			<p>response is</p>
-			<pre class='jsonrender'>{_.fylerclient.response}</pre>
+			<pre class='jsonrender'>{_.fyler.response}</pre>
 		</div>	
-		<div if={_.fylerclient.err} class='jsonrender'>Error is </p>
-			<pre class='jsonrender'>{_.fylerclient.err}</pre>
+		<div if={_.fyler.err} class='jsonrender'>Error is </p>
+			<pre class='jsonrender'>{_.fyler.err}</pre>
 		</div>	
     
     <button id='makeCallBtn'>Make Call</button>
@@ -44,7 +44,7 @@ import StoreWatcher from '../../event-manager/mixins/storex'
     //  - add a validationform
     //  - add a validate function in the handlers['<tag-name>'] section to set result
     //                into state.<store>.<validationform>.validated property
-    self.stores = ['fylerclient'] // stores to watch
+    self.stores = ['fyler'] // stores to watch
     self.validationform = [] // validation form . this will have validated field
 
     // for store watching

@@ -39,11 +39,11 @@ module.exports = {
           self.update()
         })
       })
-      handlers[identifier].onmount.call(self, {page: identifier,domain: self.opts.domain}, store, null, null)
+      handlers[identifier].onmount.call(self, {page: identifier, domain: self.opts.domain}, store, null, null)
     })
 
     self.validate = () => {
-      handlers[identifier].validate.call(self, null, store, null, null)
+      handlers[identifier].validate.call(self, {page: identifier, domain: self.opts.domain}, store, null, null)
     }
   }
 }

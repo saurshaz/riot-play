@@ -4,21 +4,11 @@ import Fyler from '../components/js/Fyler'
 
 var handlers = {}
 handlers['login'] = {}
-
-let filterData = (passedValues, module) => {
-  let passData = {}
-  for (let i in passedValues) {
-    if (passedValues[i]['type'] === 'dom') {
-      passData[passedValues[i]['key']] = document.querySelector('[data-is="' + module + '"] ' + passedValues[i]['selector'])['value']
-    }
-  }
-  return passData
-}
-
 handlers['login'].handleLogin = function (data, store, cb, event) {
   let context = this
-  data = filterData(data, 'login')
-  console.log(this)
+  data.userId = document.querySelector('[data-is="' + data.page + '"] ' + 'input#userid').value
+  data.userPassword = document.querySelector('[data-is="' + data.page + '"] ' + 'input#password').value
+
   if (data.userId === 'saurshaz' && data.userPassword === 'password') {
     store.setState('user', 'userId', '')
     store.setState('user', 'userPassword', '')
@@ -36,7 +26,6 @@ handlers['login'].handleLogin = function (data, store, cb, event) {
 
 handlers['login'].handleResetLogin = function (data, store, cb, event) {
   let context = this
-  data = filterData(data)
   store.setState('user', 'userId', '')
   store.setState('user', 'userPassword', '')
   store.setState('user', 'authStatus', false)
@@ -48,9 +37,9 @@ handlers['login'].validate = function (data, store, cb, event) {
   let result = true
   let self = context
 
-  let userInput = self.root.querySelector('#userid')
-  let passwordInput = self.root.querySelector('#password')
-  let repeatPasswordInput = self.root.querySelector('#repeatPassword')
+  let userInput = document.querySelector('[data-is="' + data.page + '"] ' + 'input#userid')
+  let passwordInput = document.querySelector('[data-is="' + data.page + '"] ' + 'input#password')
+  let repeatPasswordInput = document.querySelector('[data-is="' + data.page + '"] ' + 'input#repeatPassword')
 
   //  todo :: use a validation lib here
   //  add messages also, display messages at a common place
