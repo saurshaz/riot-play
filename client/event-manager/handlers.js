@@ -1,5 +1,7 @@
 'use strict'
 
+import Fyler from '../components/js/Fyler'
+
 var handlers = {}
 handlers['login'] = {}
 
@@ -84,6 +86,55 @@ handlers['login'].validate = function (data, store, cb, event) {
     }
   }
   store.setState('user', 'loginform', {validated: result})
+}
+
+// fylerclient 
+handlers['fylerclient'] = {}
+handlers['fylerclient'].onmount = function (data, store, cb, event) {
+  let self = this
+  document.querySelector('[data-is="' + data.page + '"] ' + '#json_change_div').style.display = 'none'
+  document.querySelector('[data-is="' + data.page + '"] ' + '#json_output_div').style.display = 'block'
+
+  let original_json = {'my_name': 'saurshaz'}
+  let requestjson = {
+    'config': {
+      'how': 'sync',
+      'where': 'server',
+      'lookat': 'context'
+    },
+    'commands': [ {
+      'what': 'utils',
+      'handler': 'echo',
+      'input': original_json
+    } ]
+  }
+  store.setState(data.domain, 'requestjson', requestjson)
+  store.setState(self.opts.domain, 'request', JSON.stringify(requestjson, null, 4))
+}
+
+handlers['fylerclient'].changeRequest = function (data, store, cb, event) {
+  let self = this
+  data.requestjson = JSON.parse(document.querySelector('[data-is="' + data.page + '"] ' + '#requestId').value) // todo :: validation of JSON as user types
+  store.setState(data.domain, 'request', JSON.stringify(data.requestjson, null, 4))
+  store.setState(data.domain, 'requestjson', data.requestjson)
+  document.querySelector('[data-is="' + data.page + '"] ' + '#json_change_div').style.display = 'none'
+  document.querySelector('[data-is="' + data.page + '"] ' + '#json_output_div').style.display = 'block'
+  document.querySelector('[data-is="' + data.page + '"] ' + '#changeRequestBtn').style.display = 'block'
+}
+
+handlers['fylerclient'].showChangeRequestForm = function (data, store, cb, event) {
+  let self = this
+  document.querySelector('[data-is="' + data.page + '"] ' + '#json_change_div').style.display = 'block'
+  document.querySelector('[data-is="' + data.page + '"] ' + '#json_output_div').style.display = 'none'
+  document.querySelector('[data-is="' + data.page + '"] ' + '#changeRequestBtn').style.display = 'none'
+}
+
+handlers['fylerclient'].makeCall = function (data, store, cb, event) {
+  let self = this
+  Fyler.run(store.getState(data.domain, 'requestjson'), function (err, res) {
+    store.setState(data.domain, 'response', JSON.stringify(res, null, 4))
+    store.setState(data.domain, 'err', err)
+  })
 }
 
 module.exports = handlers

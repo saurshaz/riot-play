@@ -28,6 +28,7 @@ function processorFilter (request, response, next) {
       domain: extraParams.domain,
       page: extraParams.page
     }
+
     riot.mount('#app', view, options)
     // we need this to easily check the current route from every component
     riot.routeState = {
