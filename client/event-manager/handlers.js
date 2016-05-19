@@ -114,7 +114,8 @@ handlers['fylerclient'].onmount = function (data, store, cb, event) {
 
 handlers['fylerclient'].changeRequest = function (data, store, cb, event) {
   let self = this
-  data.requestjson = JSON.parse(document.querySelector('[data-is="' + data.page + '"] ' + '#requestId').value) // todo :: validation of JSON as user types
+  let inputdata = document.querySelector('[data-is="' + data.page + '"] ' + '#requestId').value.replace(/'/g, '"')
+  data.requestjson = JSON.parse(inputdata) // todo :: validation of JSON as user types
   store.setState(data.domain, 'request', JSON.stringify(data.requestjson, null, 4))
   store.setState(data.domain, 'requestjson', data.requestjson)
   document.querySelector('[data-is="' + data.page + '"] ' + '#json_change_div').style.display = 'none'
@@ -133,6 +134,8 @@ handlers['fylerclient'].makeCall = function (data, store, cb, event) {
   let self = this
   Fyler.run(store.getState(data.domain, 'requestjson'), function (err, res) {
     store.setState(data.domain, 'response', JSON.stringify(res, null, 4))
+    if (typeof err === 'object')
+      err = JSON.stringify(err)
     store.setState(data.domain, 'err', err)
   })
 }
