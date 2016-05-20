@@ -17,25 +17,24 @@ function processorFilter (request, response, next) {
   }
 
   try {
-    view = extraParams.pid || view
     let projectName = extraParams.view || 'home'
     if (projectName) {
-      require('../components/' + projectName + '/' + view + '.html')
+      require('../components/' + projectName + '/' + extraParams.page + '.html')
     } else {
-      require('../components/' + view + '.html')
+      require('../components/' + extraParams.page + '.html')
     }
     let options = {
       domain: extraParams.domain,
       page: extraParams.page
     }
 
-    riot.mount('#app', view, options)
+    riot.mount('#app', extraParams.page, options)
     // we need this to easily check the current route from every component
     riot.routeState = {
       view: ''
     }
   } catch (e) {
-    console.log(' **** error in routing for view  >> ', view)
+    console.log(' **** error in routing for view  >> ', extraParams.page)
     console.log('details of error ', e)
     next()
   } finally {
