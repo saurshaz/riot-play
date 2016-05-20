@@ -1,5 +1,6 @@
 import riot from 'riot'
 import Fyler from '../js/Fyler'
+import StoreWatcher from '../../event-manager/mixins/storex'
 
 <fylerclient>
     <style>
@@ -13,71 +14,44 @@ import Fyler from '../js/Fyler'
       .hidden {
         display:none;
       }
-    </style>	
-  <section id='fylerclient'>
-		<div class='jsonrender' id='json_output_div'>
-			<p>request JSON is</p>
-			<pre>{request}</pre>
-		</div>
-    <div class='jsonrender hidden' id='json_change_div'>
-      <textarea id='requestId' style='margin: 0px; width: 383px; height: 210px;'>{request}</textarea>
-      <button onclick={changeRequest}>Make Change</button>
+    </style>  
+  <section>
+    <div class='jsonrender' id='json_output_div'>
+      <p>request JSON is</p>
+      <pre>{_.fyler.request}</pre>
     </div>
-		<div if={response} class='jsonrender'>
-			<p>response is</p>
-			<pre class='jsonrender'>{response}</pre>
-		</div>	
-		<div if={err} class='jsonrender'>Error is </p>
-			<pre class='jsonrender'>{err}</pre>
-		</div>	
+    <div class='jsonrender hidden' id='json_change_div'>
+      <textarea id='requestId' style='margin: 0px; width: 383px; height: 210px;'>{_.fyler.request}</textarea>
+      <button id='btnChangeRequest'>Make Change</button>
+    </div>
+    <div if={_.fyler.response} class='jsonrender'>
+      <p>response is</p>
+      <pre class='jsonrender'>{_.fyler.response}</pre>
+    </div>  
+    <div if={_.fyler.err} class='jsonrender'>Error is </p>
+      <pre class='jsonrender'>{_.fyler.err}</pre>
+    </div>  
     
-    <button id='makeCallBtn' onclick={makeCall}>Make Call</button>
-    <button id='changeRequestBtn' onclick={showChangeRequestForm}>Change Request</button>
+    <button id='makeCallBtn'>Make Call</button>
+    <button id='changeRequestBtn'>Change Request</button>
   </section>
   <script>
-    let self = this;
-    let original_json = {'my_name': 'saurshaz'}
-
-    var requestjson = {
-      'config': {
-        'how': 'sync',
-        'where': 'server',
-        'lookat': 'context'
-      },
-      'commands': [ {
-        'what': 'utils',
-        'handler': 'echo',
-        'input': original_json
-      } ]
-    }
-    self.request = JSON.stringify(requestjson, null, 4)
-
-    changeRequest(){
-      requestjson = JSON.parse(self.root.querySelector('#requestId').value)// todo :: validation of JSON as user types
-      self.request = JSON.stringify(requestjson, null, 4)
-      console.log(self.request)
-      self.root.querySelector('#json_change_div').style.display = 'none'
-      self.root.querySelector('#json_output_div').style.display = 'block'
-      self.root.querySelector('#changeRequestBtn').style.display = 'block'
-    }
-
-    showChangeRequestForm(){
-      self.root.querySelector('#json_change_div').style.display = 'block'
-      self.root.querySelector('#json_output_div').style.display = 'none'
-      self.root.querySelector('#changeRequestBtn').style.display = 'none'
-    }
-
-    self.on('mount',function(){
-      self.root.querySelector('#json_change_div').style.display = 'none'
-      self.root.querySelector('#json_output_div').style.display = 'block'
-    })
+    // let self = this;
     
-    makeCall(){
-      Fyler.run( requestjson, function (err, res) {
-      	self.response = JSON.stringify(res, null, 4)
-      	self.err = (typeof err != 'string') ? JSON.stringify(err)  : err 
-      	self.update()
-      })
-    }
+    let self = this
+
+    // for validations
+    //  - add a validationform
+    //  - add a validate function in the handlers['<tag-name>'] section to set result
+    //                into state.<store>.<validationform>.validated property
+    self.stores = ['fyler'] // stores to watch
+    self.validationform = [] // validation form . this will have validated field
+
+    // for store watching
+    // import StoreWatcher from ../../event-manager/mixins/storex
+    // self.mixin(StoreWatcher)
+    let mixin = self.mixin(StoreWatcher)
+
+
   </script>
 </fylerclient>

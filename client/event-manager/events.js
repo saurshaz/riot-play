@@ -64,6 +64,44 @@ eventsConfig.fylerclient.push({
   handler: 'changeRequest',
 })
 
+// apiclient components config
+eventsConfig.apiclient = []
+eventsConfig.apiclient.push({
+  selector: {
+    nodename: 'SECTION',
+    nodeid: 'apiclient'
+  },
+  event: 'load',
+  handler: 'onmount',
+})
+
+eventsConfig.apiclient.push({
+  selector: {
+    nodename: 'BUTTON',
+    nodeid: 'makeCallBtn'
+  },
+  event: 'click',
+  handler: 'makeCall',
+})
+
+eventsConfig.apiclient.push({
+  selector: {
+    nodename: 'BUTTON',
+    nodeid: 'changeRequestBtn'
+  },
+  event: 'click',
+  handler: 'showChangeRequestForm',
+})
+
+eventsConfig.apiclient.push({
+  selector: {
+    nodename: 'BUTTON',
+    nodeid: 'btnChangeRequest'
+  },
+  event: 'click',
+  handler: 'changeRequest',
+})
+
 function setupEvents (data) {
   let context = data.context
   let domain = context.opts.domain || data.domain

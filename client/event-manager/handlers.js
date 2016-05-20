@@ -129,4 +129,72 @@ handlers['fylerclient'].makeCall = function (data, store, cb, event) {
   })
 }
 
+// apiclient 
+handlers['apiclient'] = {}
+handlers['apiclient'].onmount = function (data, store, cb, event) {
+  let self = this
+  document.querySelector('[data-is="' + data.page + '"] ' + '#json_change_div').style.display = 'none'
+  document.querySelector('[data-is="' + data.page + '"] ' + '#json_output_div').style.display = 'block'
+
+  let requestjson = {
+    'commands': [{
+      'what': 'oneapi',
+      'handler': 'call',
+      'commands': [{
+        'what': 'OneApiService',
+        'handler': 'step1',
+        'apiinfo': {
+          'oa': {
+            'appname': 'applex',
+            'api': 'FLICKR',
+            'action': 'SEARCHPHOTOS',
+            'uid': 'admin',
+            'finalurldata': {
+              'per_page': '500',
+              'tags': 'india'
+            }
+          }
+        }
+      }]
+    }],
+    'config': {
+      'how': 'sync',
+      'where': 'server',
+      'lookat': 'context'
+    }
+  }
+  store.setState(data.domain, 'requestjson', requestjson)
+  store.setState(self.opts.domain, 'request', JSON.stringify(requestjson, null, 4))
+}
+
+handlers['apiclient'].changeRequest = function (data, store, cb, event) {
+  let self = this
+  let inputdata = document.querySelector('[data-is="' + data.page + '"] ' + '#requestId').value.replace(/'/g, '"')
+  data.requestjson = JSON.parse(inputdata) // todo :: validation of JSON as user types
+  store.setState(data.domain, 'request', JSON.stringify(data.requestjson, null, 4))
+  store.setState(data.domain, 'requestjson', data.requestjson)
+  document.querySelector('[data-is="' + data.page + '"] ' + '#json_change_div').style.display = 'none'
+  document.querySelector('[data-is="' + data.page + '"] ' + '#json_output_div').style.display = 'block'
+  document.querySelector('[data-is="' + data.page + '"] ' + '#changeRequestBtn').style.display = 'block'
+}
+
+handlers['apiclient'].showChangeRequestForm = function (data, store, cb, event) {
+  let self = this
+  document.querySelector('[data-is="' + data.page + '"] ' + '#json_change_div').style.display = 'block'
+  document.querySelector('[data-is="' + data.page + '"] ' + '#json_output_div').style.display = 'none'
+  document.querySelector('[data-is="' + data.page + '"] ' + '#changeRequestBtn').style.display = 'none'
+}
+
+handlers['apiclient'].makeCall = function (data, store, cb, event) {
+  let self = this
+  Fyler.run(store.getState(data.domain, 'requestjson'), function (err, res) {
+    if (typeof res === 'object' && res[0] && res[0].text)
+      res = res[0].text
+    store.setState(data.domain, 'response', JSON.stringify(res, null, 4))
+    if (typeof err === 'object')
+      err = JSON.stringify(err)
+    store.setState(data.domain, 'err', err)
+  })
+}
+
 module.exports = handlers

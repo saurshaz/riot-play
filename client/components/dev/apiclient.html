@@ -2,7 +2,7 @@ import riot from 'riot'
 import Fyler from '../js/Fyler'
 import StoreWatcher from '../../event-manager/mixins/storex'
 
-<fylerclient>
+<apiclient>
     <style>
       pre : {
           position: relative;
@@ -14,23 +14,23 @@ import StoreWatcher from '../../event-manager/mixins/storex'
       .hidden {
         display:none;
       }
-    </style>	
+    </style>  
   <section>
-		<div class='jsonrender' id='json_output_div'>
-			<p>request JSON is</p>
-			<pre>{_.fyler.request}</pre>
-		</div>
+    <div class='jsonrender' id='json_output_div'>
+      <p>request JSON is</p>
+      <pre>{_.fyler.request}</pre>
+    </div>
     <div class='jsonrender hidden' id='json_change_div'>
       <textarea id='requestId' style='margin: 0px; width: 383px; height: 210px;'>{_.fyler.request}</textarea>
       <button id='btnChangeRequest'>Make Change</button>
     </div>
-		<div if={_.fyler.response} class='jsonrender'>
-			<p>response is</p>
-			<pre class='jsonrender'>{_.fyler.response}</pre>
-		</div>	
-		<div if={_.fyler.err} class='jsonrender'>Error is </p>
-			<pre class='jsonrender'>{_.fyler.err}</pre>
-		</div>	
+    <div if={_.fyler.response} class='jsonrender'>
+      <p>response is</p>
+      <pre class='jsonrender'>{_.fyler.response}</pre>
+    </div>  
+    <div if={_.fyler.err} class='jsonrender'>Error is </p>
+      <pre class='jsonrender'>{_.fyler.err}</pre>
+    </div>  
     
     <button id='makeCallBtn'>Make Call</button>
     <button id='changeRequestBtn'>Change Request</button>
@@ -54,4 +54,4 @@ import StoreWatcher from '../../event-manager/mixins/storex'
 
 
   </script>
-</fylerclient>
+</apiclient>
