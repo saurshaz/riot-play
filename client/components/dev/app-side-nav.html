@@ -22,7 +22,7 @@ import StoreWatcher from '../../event-manager/mixins/storex'
                             <div class="collapsible-body" style="">
                                 <ul>
                                     <li each={subitem in item.data}>
-                                        <a href="navTo({subitem.link})" class='trigger'>{subitem.label}</a>
+                                        <a onclick={_.fyler.navTo} data-link={subitem.link}  class='trigger'>{subitem.label}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -31,7 +31,7 @@ import StoreWatcher from '../../event-manager/mixins/storex'
                 </li>
             </section>
             <section if={item.type == 'image'}>
-                <a id="logo-container" data-link={item.link}  class=" trigger brand-logo" style="position: relative;margin-top:40%">
+                <a id="logo-container" onclick={_.fyler.navTo} data-link={item.link}   class=" trigger brand-logo" style="position: relative;margin-top:40%">
                     <app-image type='{item.data.type}' src='{item.data.src}' as='{item.data.as}''></app-image>
                 </a>
             </section>

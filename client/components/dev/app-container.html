@@ -107,32 +107,29 @@ require('./app-side-nav.html')
             type: 'array',
             data: [{
                 label: 'mobiles',
-                link: '/home?handler=hello&view=dev&domain=fyler&page=app-container&target=div.container'
-            }, {
-                label: 'computers/etc.',
-                link: '/home?handler=hello&view=dev&domain=fyler&page=app-container&target=div.container'
+                link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
             }, {
                 label: 'TVs et al',
-                link: '/home?handler=hello&view=dev&domain=fyler&page=app-container&target=div.container'
+                link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
             }, {
                 label: 'Digital Cameras',
-                link: '/home?handler=hello&view=dev&domain=fyler&page=app-container&target=div.container'
+                 link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
             }]
         }, {
             label: 'Fashion',
             type: 'array',
             data: [{
                 label: 'Mens',
-                link: '/home?handler=hello&view=dev&domain=fyler&page=app-container&target=div.container'
+                 link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
             }, {
                 label: 'Women',
-                link: '/home?handler=hello&view=dev&domain=fyler&page=app-container&target=div.container'
+                 link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
             }, {
                 label: 'Kids',
-                link: '/home?handler=hello&view=dev&domain=fyler&page=app-container&target=div.container'
+                 link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
             }, {
                 label: 'Special ocassions',
-                link: '/home?handler=hello&view=dev&domain=fyler&page=app-container&target=div.container'
+                 link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
             }]
         }]
     }
@@ -154,7 +151,7 @@ require('./app-side-nav.html')
                   page: extraParams.page
                 }
                 require('./'+extraParams.fragment+'.html')        
-                document.querySelector(extraParams.target).innerHTML=''   
+                // document.querySelector(extraParams.target).innerHTML=''   
                 riot.mount(extraParams.target, extraParams.fragment, options)
 
         }else{
