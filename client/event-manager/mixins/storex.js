@@ -39,11 +39,17 @@ module.exports = {
           self.update()
         })
       })
-      handlers[identifier].onmount.call(self, {page: identifier, domain: self.opts.domain}, store, null, null)
+
+      if (identifier && handlers[identifier] && handlers[identifier].onmount && (typeof handlers[identifier].onmount === 'function')) {
+        handlers[identifier].onmount.call(self, {page: identifier, domain: self.opts.domain}, store, null, null)
+      }
     })
 
     self.validate = () => {
-      handlers[identifier].validate.call(self, {page: identifier, domain: self.opts.domain}, store, null, null)
+      let identifier = this.opts.dataIs
+      if (identifier && handlers[identifier] && handlers[identifier].validate && (typeof handlers[identifier].validate === 'function')) {
+        handlers[identifier].validate.call(self, {page: identifier, domain: self.opts.domain}, store, null, null)
+      }
     }
   }
 }
