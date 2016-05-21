@@ -29,6 +29,7 @@ function processorFilter (request, response, next) {
     }
 
     riot.mount('#app', extraParams.page, options)
+
     // we need this to easily check the current route from every component
     riot.routeState = {
       view: ''

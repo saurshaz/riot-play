@@ -2,6 +2,7 @@ import riot from 'riot'
 import Fyler from '../js/Fyler'
 import prism from '../style/prism.css' 
 import StoreWatcher from '../../event-manager/mixins/storex'
+require('./app-image.html')
 <app-container>
     <link href="css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -19,13 +20,15 @@ import StoreWatcher from '../../event-manager/mixins/storex'
     }
     </style>
     <header>
-        <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="material-icons">menu</i></a></div>
+        <div class="container">
+        <a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only">
+        <i class="material-icons">menu</i></a></div>
         <ul id="nav-mobile" class="side-nav fixed" style="overflow: auto; transform: translateX(0px);">
-            <li class="logo">
-                <a id="logo-container" href="/" class="brand-logo">
-                    <object id="front-page-logo" type="image/svg+xml" data="../images/materialize.svg">Your browser does not support SVG</object>
-                </a>
-            </li>
+             <li class="logo">
+		        <a id="logo-container" href="/" class="brand-logo">
+		            <app-image type="image/svg+xml" src="../images/materialize.svg" as="object"></app-image>
+		        </a>
+		    </li>
             <li class="search">
                 <div class="search-wrapper card">
                     <input id="search"><i class="material-icons">search</i>
@@ -79,7 +82,7 @@ import StoreWatcher from '../../event-manager/mixins/storex'
                 <div class="row">
                     <div class="col s12 m8 offset-m2">
                         <br>
-                        <img id="responsive-img" src="../images/logo.png">
+                        <app-image type="image" src="../images/logo.png" as="object"></app-image>
                     </div>
                 </div>
                 <div class="row">
@@ -153,7 +156,6 @@ import StoreWatcher from '../../event-manager/mixins/storex'
     //   s.parentNode.insertBefore(wf, s);
     // })();
     let self = this
-
     // for validations
     //  - add a validationform
     //  - add a validate function in the handlers['<tag-name>'] section to set result

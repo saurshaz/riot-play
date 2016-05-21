@@ -37,11 +37,19 @@
     ga('create', 'UA-XXXXX-X', 'auto');
     ga('send', 'pageview');
     </script>
+
     <script src="/scripts/jquery-2.1.4.min.js"></script>
     <script src="/scripts/init.js"></script>
     <script src="/scripts/materialize.js"></script>
     <script src="/scripts/pubsub.js"></script>
     <script src="/scripts/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/riot/2.4.0/riot+compiler.min.js"></script>
+    <!-- <script type="riot/tag" src="/appcomponents/app-image.html"></script> -->
+
+    <script>
+        riot.mount('*')
+    </script>
+    
     <!-- <script src="/assets/main.js"></script> -->
 
     <script src="{{STATIC_RESOURCES_SERVER_ADDRESS}}/main.js"></script>
