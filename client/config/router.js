@@ -6,7 +6,7 @@ import router from 'riot-router'
 // Redirect unlogged users to /login page
 function processorFilter (request, response, next) {
   let view = request.uri.slice(1)
-  let extraParams = {domain: true, page: true, pid: true, view: true}
+  let extraParams = {domain: '', page: '', view: '', target: '',fragment: ''}
   var replaced = window.location.search.slice(1)
   var arr = replaced.split('&')
   for (var i = arr.length - 1; i >= 0; i--) {
@@ -23,12 +23,16 @@ function processorFilter (request, response, next) {
     } else {
       require('../components/' + extraParams.page + '.html')
     }
+    // if (!extraParams.target) {
     let options = {
       domain: extraParams.domain,
       page: extraParams.page
     }
-
     riot.mount('#app', extraParams.page, options)
+    // } else {
+    //   extraParams.target = extraParams.target || '#app'
+    //   riot.mount(extraParams.target, extraParams.page, options)
+    // }
 
     // we need this to easily check the current route from every component
     riot.routeState = {

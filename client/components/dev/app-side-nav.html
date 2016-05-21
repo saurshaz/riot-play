@@ -1,0 +1,69 @@
+import riot from 'riot'
+
+require('./app-side-nav-search-card.html')
+require('./app-image.html')
+import StoreWatcher from '../../event-manager/mixins/storex' 
+
+<app-side-nav>
+    <div class="container">
+        <a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only">
+            <i class="material-icons">menu</i></a>
+    </div>
+    <ul id="nav-mobile" class="side-nav fixed" style="overflow: hidden; transform: translateX(0px);">
+        <li each={item in opts.data.menu_config}>
+            <section if={item.type == 'text'}>
+                <li class="bold">
+                    <a onclick={_.fyler.navTo} data-link={item.link} class="trigger waves-effect waves-teal">{item.label}</a></li>
+            </section>
+            <section if={item.type == 'array'}>
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li class="bold"><a class="collapsible-header  waves-effect waves-teal">{item.label}</a>
+                            <div class="collapsible-body" style="">
+                                <ul>
+                                    <li each={subitem in item.data}>
+                                        <a href="navTo({subitem.link})" class='trigger'>{subitem.label}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </section>
+            <section if={item.type == 'image'}>
+                <a id="logo-container" data-link={item.link}  class=" trigger brand-logo" style="position: relative;margin-top:40%">
+                    <app-image type='{item.data.type}' src='{item.data.src}' as='{item.data.as}''></app-image>
+                </a>
+            </section>
+            <section if={item.type == 'search'}>
+                <li class="search" style="position: absolute;top:5%">
+                    <app-side-nav-search-card> </app-side-nav-search-card><!-- todo :: make search card use yield  -->
+                </li>
+            </section>
+        </li>
+    </ul>
+    <script>
+    // console.log(this.opts.data)
+    let self = this
+        // for validations
+        //  - add a validationform
+        //  - add a validate function in the handlers['<tag-name>'] section to set result
+        //                into state.<store>.<validationform>.validated property
+    self.stores = ['fyler'] // stores to watch
+    self.validationform = [] // validation form . this will have validated field
+
+    // for store watching
+    // import StoreWatcher from ../../event-manager/mixins/storex
+    // self.mixin(StoreWatcher)
+    let mixin = self.mixin(StoreWatcher)
+
+    self.on('mount', ()=>{
+        self.root.querySelector('ul#nav-mobile').onclick = function (e) {
+            if(e.target.nodeName === "A" && e.target.classList.contains('trigger')){
+                self._.navTo(e.target.getAttribute('data-link'))    
+            }
+        }
+    })
+    
+    </script>
+</app-side-nav>
