@@ -78,6 +78,11 @@ module.exports = function (app) {
     renderWithServiceOutput(passedConfig, res)
   })
 
+  // todo :: get rid of below route or the hardcoding. done for mobile preview
+  app.get('/main', function (req, res) {
+    res.redirect('/home?handler=hello&view=dev&domain=fyler&page=app-container')
+  })
+
   app.put('/', function (req, res) {
     res.cookie('appinit', 'true')
 
