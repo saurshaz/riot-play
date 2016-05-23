@@ -3,6 +3,7 @@ import './riot-app-main.html'
 import './riot-app-navi.html'
 import './riot-app-help.html'
 import StoreWatcher from '../../../event-manager/mixins/storex' 
+import RouterX from '../../../event-manager/mixins/routerx' 
 
 <riot-app-test>
   <riot-app-main></riot-app-main>
@@ -22,28 +23,7 @@ import StoreWatcher from '../../../event-manager/mixins/storex'
     self.stores = ['fyler'] // stores to watch
     self.validationform = [] // validation form . this will have validated field
 
-    let mixin = self.mixin(StoreWatcher)
-
-  	self._.navTo = function (targetUri) {
-      if (targetUri.indexOf('target') !== -1) {
-        let extraParams = {domain: '', page: '', view: '', target: '', fragment: ''}
-        var replaced = targetUri.slice(1)
-        var arr = replaced.split('&')
-        for (var i = arr.length - 1; i >= 0; i--) {
-          if (arr[i].split('=') && arr[i].split('=').length === 2) {
-            var keyValArr = arr[i].split('=')
-            extraParams[keyValArr[0]] = keyValArr[1] || ''
-          }
-        }
-        let options = {
-          domain: extraParams.domain,
-          page: extraParams.page
-        }
-        require('./' + extraParams.fragment + '.html')
-        riot.mount(extraParams.target, extraParams.fragment, options)
-      } else {
-        document.location.href = targetUri
-      }
-    } 
+    self.mixin(StoreWatcher)
+    self.mixin(RouterX)
   </script>
 </riot-app-test>
