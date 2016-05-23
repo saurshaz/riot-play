@@ -105,79 +105,77 @@ require('./app-side-nav.html')
     // for store watching
     // import StoreWatcher from ../../event-manager/mixins/storex
     // self.mixin(StoreWatcher)
+        
     let mixin = self.mixin(StoreWatcher)
 
     self.passed_data = {
-        menu_config: [{
-            type: 'search'
-        }, {
-            label: 'image',
-            link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser',
-            type: 'image',
-            data: {
-                type: "image/svg+xml",
-                src: "/images/materialize.svg",
-                as: "object"
-            }
-        }, {
-            label: 'Clearance Sale',
-            link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser',
-            type: 'text'
-        }, {
-            label: 'electronics',
-            type: 'array',
-            data: [{
-                label: 'mobiles',
-                link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
-            }, {
-                label: 'TVs et al',
-                link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
-            }, {
-                label: 'Digital Cameras',
-                 link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
-            }]
-        }, {
-            label: 'Fashion',
-            type: 'array',
-            data: [{
-                label: 'Mens',
-                 link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
-            }, {
-                label: 'Women',
-                 link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
-            }, {
-                label: 'Kids',
-                 link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
-            }, {
-                label: 'Special ocassions',
-                 link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
-            }]
-        }]
-    }
-    self._.navTo = function (targetUri) {
-        if(targetUri.indexOf('target')!=-1){
-            var indexOfQuery = targetUri.indexOf('?')
-              let queryString = targetUri.slice(indexOfQuery+1)
-              let extraParams = {domain: '', page: '', view: '', target: '', fragment: ''}
-              var replaced = targetUri.slice(1)
-              var arr = replaced.split('&')
-              for (var i = arr.length - 1; i >= 0; i--) {
-                if (arr[i].split('=') && arr[i].split('=').length === 2) {
-                  var keyValArr = arr[i].split('=')
-                  extraParams[keyValArr[0]] = keyValArr[1] || ''
-                }
-              }
-                let options = {
-                  domain: extraParams.domain,
-                  page: extraParams.page
-                }
-                require('./'+extraParams.fragment+'.html')        
-                // document.querySelector(extraParams.target).innerHTML=''   
-                riot.mount(extraParams.target, extraParams.fragment, options)
-
-        }else{
-            document.location.href = targetUri
+      menu_config: [{
+        type: 'search'
+      }, {
+        label: 'image',
+        link: '/view/greater/app-container/fyler/dev.html?target=.main-container&fragment=appbrowser',
+        type: 'image',
+        data: {
+          type: 'image/svg+xml',
+          src: '/images/materialize.svg',
+          as: 'object'
         }
+      }, {
+        label: 'Clearance Sale',
+        link: '/view/greater/app-container/fyler/dev.html?target=.main-container&fragment=appbrowser',
+        type: 'text'
+      }, {
+        label: 'electronics',
+        type: 'array',
+        data: [{
+          label: 'mobiles',
+          link: '/view/greater/app-container/fyler/dev.html?target=.main-container&fragment=appbrowser'
+        }, {
+          label: 'TVs et al',
+          link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
+        }, {
+          label: 'Digital Cameras',
+          link: '/home?handler=hello&view=dev&domain=fyler&page=appbrowser&target=.main-container&fragment=appbrowser'
+        }]
+      }, {
+        label: 'Fashion',
+        type: 'array',
+        data: [{
+          label: 'Mens',
+          link: '/view/greater/app-container/fyler/dev.html?target=.main-container&fragment=appbrowser'
+        }, {
+          label: 'Women',
+          link: '/view/greater/app-container/fyler/dev.html?target=.main-container&fragment=appbrowser'
+        }, {
+          label: 'Kids',
+          link: '/view/greater/app-container/fyler/dev.html?page=appbrowser&target=.main-container&fragment=appbrowser'
+        }, {
+          label: 'Special ocassions',
+          link: '?page=appbrowser&target=.main-container&fragment=appbrowser'
+        }]
+      }]
     }
+
+    self._.navTo = function (targetUri) {
+      if (targetUri.indexOf('target') !== -1) {
+        let extraParams = {domain: '', page: '', view: '', target: '', fragment: ''}
+        var replaced = targetUri.slice(1)
+        var arr = replaced.split('&')
+        for (var i = arr.length - 1; i >= 0; i--) {
+          if (arr[i].split('=') && arr[i].split('=').length === 2) {
+            var keyValArr = arr[i].split('=')
+            extraParams[keyValArr[0]] = keyValArr[1] || ''
+          }
+        }
+        let options = {
+          domain: extraParams.domain,
+          page: extraParams.page
+        }
+        require('./' + extraParams.fragment + '.html')
+        riot.mount(extraParams.target, extraParams.fragment, options)
+      } else {
+        document.location.href = targetUri
+      }
+    } 
     </script>
 </app-container>
