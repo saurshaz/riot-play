@@ -17,7 +17,7 @@ function processorFilter (request, response, next) {
   }
 
   try {
-    let projectName = extraParams.view || 'home'
+    let projectName = location.pathname.slice(1).split('.')[0] || 'home'
     if (projectName) {
       require('../components/' + projectName + '/' + extraParams.page + '.html')
     } else {

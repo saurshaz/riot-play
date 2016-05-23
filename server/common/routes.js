@@ -61,18 +61,18 @@ module.exports = function (app) {
   // `server` dynamism - base d on handler from querystring. view is also taken from the querystring
   // `client` side dynamism is by routing to component named `view` from querystring, inside the foler named `home`
   // `home` folder because we are on route `/home`. this also can be dynamized in future @todo
-  app.get('/home', function (req, res) {
+  app.get('*.html', function (req, res) {
     res.cookie('appinit', 'true')
-
+    let template = req.path.slice(1)
+    let isJson = req.path.slice(1).split('.')[1] === 'json'
     // TODO :: make it passable from PUT request instead of GET
     // call a function
     let input_data = { a: 'a_val', b: 'b_val' }
     let fn_to_call = req.query.handler
-    let isJson = req.query.view ? true : false
     let passedConfig = {
       input_data: input_data,
       fn_to_call: fn_to_call,
-      view_name: req.query.view || 'index',
+      view_name: template || 'index',
       isJsonOutput: isJson
     }
     renderWithServiceOutput(passedConfig, res)
