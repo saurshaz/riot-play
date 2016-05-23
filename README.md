@@ -48,7 +48,7 @@ to start in stage
 - riotauth (social auth-client with riot and auth-service)
 - riotgrid (crud grid with riot and fyler)
 - riotgram (instagram API with riot, search and display images  and oneapi)
-- riotdit (reddit/hackernews browser with riot and oneapi)
+- riotdit (reddit/hackernews/RSS browser with riot and oneapi)
 - riotwer (twitter client with riot and oneapi)
 - riotabnb (abnb clone with riot and oneapi)
 
