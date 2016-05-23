@@ -1,0 +1,90 @@
+import riot from 'riot'
+import moment from 'momentjs'
+import StoreWatcher from '../../../event-manager/mixins/storex'
+import RouterX from '../../../event-manager/mixins/routerx'
+
+<riotgram-container>
+    <link href="http://materializecss.com/css/prism.css" rel="stylesheet">
+    <link href="http://materializecss.com/css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--  Parallax Section  -->
+  <div class="parallax-container">
+      <div class="parallax"><img src="http://materializecss.com/images/parallax1.jpg"></div>
+  </div>
+  <div class="section white">
+      <div class="row container">
+          <h2 class="header">Riot-Man</h2>
+          <p class="grey-text text-darken-3 lighten-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam veniam ad optio quasi quia commodi neque animi laboriosam nesciunt possimus porro, rerum molestiae nihil minus odit. Dignissimos deleniti, non asperiores.</p>
+      </div>
+      <div class="row container">
+          <h4 class="light">Parallax Demo HTML</h4>
+          <pre>
+      <code class="language-markup col s12">
+
+      </code>
+    </pre>
+      </div>
+  </div>
+  <div class="parallax-container">
+      <div class="parallax"><img src="http://materializecss.com/images/parallax2.jpg"></div>
+  </div>
+  <script>
+    let self = this
+        // for validations
+        //  - add a validationform
+        //  - add a validate function in the handlers['<tag-name>'] section to set result
+        //                into state.<store>.<validationform>.validated property
+    self.stores = ['fyler'] // stores to watch
+    self.validationform = [] // validation form . this will have validated field
+
+    self.mixin(StoreWatcher)
+    self.mixin(RouterX)
+
+
+    self.on('mount',function() {
+      // TODO :: RM THE HARDCODING, MOVE TO A CONFIG FILE
+      if(window.location.pathname==='/home' && location.hash.startsWith('#testapp') && ((location.hash.search('cid=') !== -1 && window.location.hash.search('p=') !== -1))){
+        let hashQsArr = window.location.hash.split('?')
+        if(hashQsArr.length > 0){
+          let hashParams = hashQsArr[1]
+          // location.hash.split("?")[1].split('&')
+          let hashParamsKeyValArr = hashParams.split('&')
+          let isCid ,isPane = false
+          let [neededDataObject,extraDataObject] = [{},{}]
+          for(let i=0;i<hashParamsKeyValArr.length;i++){
+            let keyValSplitArr = hashParamsKeyValArr[i].split('=')
+            let [key,val] = [keyValSplitArr[0],keyValSplitArr[1]]
+            switch(key){
+              case 'cid':
+                neededDataObject[key]=val
+                break
+              case 'p':
+                neededDataObject[key]=val
+                break
+              default:
+                extraDataObject[key]=val
+            }
+          }
+
+          if(neededDataObject.cid && neededDataObject.p){
+            // pane and component id both specified
+            var mytag = require('./'+neededDataObject.cid+'.html')
+            var tags =riot.mount('#'+neededDataObject.p, neededDataObject.cid)
+            // riot.render(mytag, extraDataObject)
+            //self.tick = function () {
+            //  self.update({ time: 1000 })
+            //}
+          }else{
+            console.log('missing data, do nothing')
+          }
+        }
+
+      }else{
+        console.log('missing data, do nothing')
+      }
+
+      
+    })
+  </script>
+</riotgram-container>

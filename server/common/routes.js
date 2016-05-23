@@ -35,7 +35,7 @@ module.exports = function (app) {
           if (passedConfig.isJsonOutput && !passedConfig.view_name) {
             response.json({ result: fn_result })
           } else {
-            response.render(passedConfig.view_name, {
+            response.render(passedConfig.view_name + '/index' , {
               result: fn_result, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS
             })
           }
@@ -49,7 +49,7 @@ module.exports = function (app) {
       if (passedConfig.isJsonOutput && !passedConfig.view_name) {
         response.json({ result: _default_json })
       } else {
-        response.render(passedConfig.view_name, {
+        response.render(passedConfig.view_name + '/index' , {
           result: _default_json, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS
         })
       }

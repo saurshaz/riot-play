@@ -29,6 +29,18 @@ to start in stage
 - the webpack shall not be needed here, so a bundle shall already be generated and referred to in source code
 
 
+#### Completed Apps
+- `dev`
+	- - `home` -> `dev.html`
+- `app`
+	- - `app-container` -> `app.html`
+- `dev`
+	- - `login` -> `home.html` 
+	- - `fylerclient` -> `home.html` 
+	- - `jsonviewer` -> `home.html` 
+- `test`
+	- - `riot-app-test` -> `test.html` 
+
 Jump to `http://localhost:6600/home#home` for demo home page
 ![Demo](/demo.gif)
 

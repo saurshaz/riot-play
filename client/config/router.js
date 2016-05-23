@@ -19,17 +19,26 @@ function processorFilter (request, response, next) {
 
   try {
     let projectName = pathArr[5].split('.')[0] || 'home'
-    if (projectName) {
-      require('../components/views/' + projectName + '/' + pathArr[3] + '.html')
-    } else {
-      require('../components/views/' + pathArr[3].slice(1) + '.html')
-    }
     // if (!extraParams.target) {
     let options = {
       domain: pathArr[4],
       page: pathArr[3]
     }
-    riot.mount('#app', pathArr[3], options)
+    let moduleName
+    if (projectName) {
+      if (pathArr[3] === pathArr[5].split('.')[0]) {
+        //  handling container page mouning 
+        require('../components/views/' + projectName + '/' + pathArr[3] + '-container' + '.html')
+        moduleName = pathArr[3] + '-container'
+      } else {
+        require('../components/views/' + projectName + '/' + pathArr[3] + '.html')
+        moduleName = pathArr[3]
+      }
+    } else {
+      require('../components/views/' + pathArr[3].slice(1) + '-container' + '.html')
+      moduleName = pathArr[3]
+    }
+    riot.mount('#app', moduleName  , options)
     // } else {
     //   extraParams.target = extraParams.target || '#app'
     //   riot.mount(extraParams.target, extraParams.page, options)
