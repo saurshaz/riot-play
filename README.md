@@ -30,16 +30,27 @@ to start in stage
 
 
 #### Completed Apps
-- `dev`
-	- - `home` -> `dev.html`
+- `home`
+	- - `home-container` -> `home.html` 
+	- - `appbrowser` -> `home.html` 
 - `app`
 	- - `app-container` -> `app.html`
 - `dev`
-	- - `login` -> `home.html` 
-	- - `fylerclient` -> `home.html` 
-	- - `jsonviewer` -> `home.html` 
+	- - `dev-container` -> `dev.html`
+	- - `fylerclient` -> `dev.html` 
+	- - `jsonviewer` -> `dev.html` 
+	- - `appbrowser` -> `dev.html` 
 - `test`
-	- - `riot-app-test` -> `test.html` 
+	- - `test-container` -> `test.html` 
+	- - `appbrowser` -> `test.html` 
+
+#### TODO apps
+- riotauth (social auth-client with riot and auth-service)
+- riotgrid (crud grid with riot and fyler)
+- riotgram (instagram API with riot, search and display images  and oneapi)
+- riotdit (reddit/hackernews browser with riot and oneapi)
+- riotwer (twitter client with riot and oneapi)
+- riotabnb (abnb clone with riot and oneapi)
 
 Jump to `http://localhost:6600/home#home` for demo home page
 ![Demo](/demo.gif)
