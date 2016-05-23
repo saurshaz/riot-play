@@ -20,9 +20,9 @@ function processorFilter (request, response, next) {
   try {
     let projectName = pathArr[5].split('.')[0] || 'home'
     if (projectName) {
-      require('../components/' + projectName + '/' + pathArr[3] + '.html')
+      require('../components/views/' + projectName + '/' + pathArr[3] + '.html')
     } else {
-      require('../components/' + pathArr[3].slice(1) + '.html')
+      require('../components/views/' + pathArr[3].slice(1) + '.html')
     }
     // if (!extraParams.target) {
     let options = {

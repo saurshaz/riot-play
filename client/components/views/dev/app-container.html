@@ -1,7 +1,7 @@
 import riot from 'riot'
-import Fyler from '../js/Fyler'
-import prism from '../style/prism.css' 
-import StoreWatcher from '../../event-manager/mixins/storex' 
+import Fyler from '../../js/Fyler'
+import prism from '../../style/prism.css' 
+import StoreWatcher from '../../../event-manager/mixins/storex' 
 require('./app-image.html') 
 require('./app-home.html') 
 require('./app-side-nav.html')
@@ -82,18 +82,6 @@ require('./app-side-nav.html')
         </div>
     </footer>
     <script>
-    // let self = this;
-    //   let WebFontConfig = {
-    //   google: { families: [ 'Roboto::latin' ] }
-    // };
-    // (function() {
-    //   var wf = document.createElement('script');
-    //   wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-    //   wf.type = 'text/javascript';
-    //   wf.async = 'true';
-    //   var s = document.getElementsByTagName('script')[0];
-    //   s.parentNode.insertBefore(wf, s);
-    // })();
     let self = this
         // for validations
         //  - add a validationform
@@ -102,10 +90,6 @@ require('./app-side-nav.html')
     self.stores = ['fyler'] // stores to watch
     self.validationform = [] // validation form . this will have validated field
 
-    // for store watching
-    // import StoreWatcher from ../../event-manager/mixins/storex
-    // self.mixin(StoreWatcher)
-        
     let mixin = self.mixin(StoreWatcher)
 
     self.passed_data = {
