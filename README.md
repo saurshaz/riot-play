@@ -33,7 +33,7 @@ Jump to `http://localhost:6600/home#home` for demo home page
 ![Demo](/demo.gif)
 
 	
-Jump to `http://localhost:6600/dev.html?handler=hello&page=testapp&domain=fyler&p=pane1&cid=appbrowser&a=b&c=d` for testapp page
+Jump to `http://localhost:6600/view/hello/testapp/fyler/dev.html?p=pane1&cid=appbrowser&a=b&c=d` for testapp page
 ![Demo](/demo2.gif)
 ---------------------------------------------
 ### what it has ?

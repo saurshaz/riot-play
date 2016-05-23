@@ -5,7 +5,8 @@ import router from 'riot-router'
 
 // Redirect unlogged users to /login page
 function processorFilter (request, response, next) {
-  let view = request.uri.slice(1)
+  let pathArr = location.pathname.split('/')
+  // let view = pathArr[5].slice(1)
   let extraParams = {domain: '', page: '', view: '', target: '',fragment: ''}
   var replaced = window.location.search.slice(1)
   var arr = replaced.split('&')
@@ -17,18 +18,18 @@ function processorFilter (request, response, next) {
   }
 
   try {
-    let projectName = location.pathname.slice(1).split('.')[0] || 'home'
+    let projectName = pathArr[5].split('.')[0] || 'home'
     if (projectName) {
-      require('../components/' + projectName + '/' + extraParams.page + '.html')
+      require('../components/' + projectName + '/' + pathArr[3] + '.html')
     } else {
-      require('../components/' + extraParams.page + '.html')
+      require('../components/' + pathArr[3].slice(1) + '.html')
     }
     // if (!extraParams.target) {
     let options = {
-      domain: extraParams.domain,
-      page: extraParams.page
+      domain: pathArr[4],
+      page: pathArr[3]
     }
-    riot.mount('#app', extraParams.page, options)
+    riot.mount('#app', pathArr[3], options)
     // } else {
     //   extraParams.target = extraParams.target || '#app'
     //   riot.mount(extraParams.target, extraParams.page, options)
@@ -39,7 +40,7 @@ function processorFilter (request, response, next) {
       view: ''
     }
   } catch (e) {
-    console.log(' **** error in routing for view  >> ', extraParams.page)
+    console.log(' **** error in routing for view  >> ', pathArr[3])
     console.log('details of error ', e)
     next()
   } finally {
