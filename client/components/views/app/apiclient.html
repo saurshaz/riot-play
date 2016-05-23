@@ -1,0 +1,57 @@
+import riot from 'riot'
+import Fyler from '../../js/Fyler'
+import StoreWatcher from '../../../event-manager/mixins/storex'
+
+<apiclient>
+    <style>
+      pre : {
+          position: relative;
+          font-size: 14px;
+          background-color: black;
+          text-decoration-color: yellow;
+      }
+
+      .hidden {
+        display:none;
+      }
+    </style>  
+  <section>
+    <div class='jsonrender' id='json_output_div'>
+      <p>request JSON is</p>
+      <pre>{_.fyler.request}</pre>
+    </div>
+    <div class='jsonrender hidden' id='json_change_div'>
+      <textarea id='requestId' style='margin: 0px; width: 383px; height: 210px;'>{_.fyler.request}</textarea>
+      <button id='btnChangeRequest'>Make Change</button>
+    </div>
+    <div if={_.fyler.response} class='jsonrender'>
+      <p>response is</p>
+      <pre class='jsonrender'>{_.fyler.response}</pre>
+    </div>  
+    <div if={_.fyler.err} class='jsonrender'>Error is </p>
+      <pre class='jsonrender'>{_.fyler.err}</pre>
+    </div>  
+    
+    <button id='makeCallBtn'>Make Call</button>
+    <button id='changeRequestBtn'>Change Request</button>
+  </section>
+  <script>
+    // let self = this;
+    
+    let self = this
+
+    // for validations
+    //  - add a validationform
+    //  - add a validate function in the handlers['<tag-name>'] section to set result
+    //                into state.<store>.<validationform>.validated property
+    self.stores = ['fyler'] // stores to watch
+    self.validationform = [] // validation form . this will have validated field
+
+    // for store watching
+    // import StoreWatcher from ../../event-manager/mixins/storex
+    // self.mixin(StoreWatcher)
+    let mixin = self.mixin(StoreWatcher)
+
+
+  </script>
+</apiclient>
