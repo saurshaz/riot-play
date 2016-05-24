@@ -63,6 +63,7 @@
     "connect-mongo": "^1.1.0",
     "cookie": "^0.2.3",
     "cookie-parser": "^1.4.0",
+    "cookies-js": "^1.2.2",
     "cors": "^2.7.1",
     "express": "^4.13.4",
     "express-nunjucks": "^1.0.0",

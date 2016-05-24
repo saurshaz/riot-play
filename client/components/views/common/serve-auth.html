@@ -1,0 +1,40 @@
+import riot from 'riot'
+import StoreWatcher from '../../../event-manager/mixins/storex' 
+import RouterX from '../../../event-manager/mixins/routerx' 
+import AuthenticatorX from '../../../event-manager/mixins/authx' 
+
+
+
+<serve-auth>
+    <section if={_.fyler.loggedin}>
+      <yield />
+    </section>
+    <section if={ ! _.fyler.loggedin}>
+      <p>please authenticate .. </p>
+
+      <a href="{APP_URL}/ed?apid=appler&apto={currentLocation}" class="btn btn-danger">
+                    <span class="fa fa-google-plus"></span> Google+</a>
+    </section>
+  <style>
+    body { margin: 0 }
+  </style>
+
+  <script>
+    let self = this
+    // for validations
+    //  - add a validationform
+    //  - add a validate function in the handlers['<tag-name>'] section to set result
+    //                into state.<store>.<validationform>.validated property
+    self.stores = ['fyler'] // stores to watch
+    self.validationform = [] // validation form . this will have validated field
+
+    self.mixin(StoreWatcher)
+    self.mixin(RouterX)
+    self.mixin(AuthenticatorX)
+
+    self._.fyler.loggedin = false
+    self._.authenticate()
+    self.currentLocation = document.location.origin + document.location.pathname + document.location.search
+    self.APP_URL = 'http://saurabhs-macbook-air.local:5000'// todo :: rm hardcoding
+  </script>
+</serve-auth>

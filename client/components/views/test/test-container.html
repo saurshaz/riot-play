@@ -2,13 +2,19 @@ import riot from 'riot'
 import './riot-app-main.html'
 import './riot-app-navi.html'
 import './riot-app-help.html'
+import '../common/serve-auth.html'
 import StoreWatcher from '../../../event-manager/mixins/storex' 
 import RouterX from '../../../event-manager/mixins/routerx' 
 
 <test-container>
-  <riot-app-main></riot-app-main>
-  <riot-app-navi></riot-app-navi>
-  <riot-app-help></riot-app-help>
+
+  <serve-auth class='__container' secured='true' secured-key='loggedin' secured-val='true' domain='user' page='test'>
+  
+    <riot-app-main></riot-app-main>
+    <riot-app-navi></riot-app-navi>
+    <riot-app-help></riot-app-help>
+
+  </serve-auth>
 
   <style>
     body { margin: 0 }
@@ -20,7 +26,7 @@ import RouterX from '../../../event-manager/mixins/routerx'
     //  - add a validationform
     //  - add a validate function in the handlers['<tag-name>'] section to set result
     //                into state.<store>.<validationform>.validated property
-    self.stores = ['fyler'] // stores to watch
+    self.stores = ['user'] // stores to watch
     self.validationform = [] // validation form . this will have validated field
 
     self.mixin(StoreWatcher)

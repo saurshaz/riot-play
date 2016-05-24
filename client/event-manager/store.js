@@ -3,7 +3,7 @@ let PubSub = require('./pubsub.js')
 
 // todo :: restrict property access without `setState`
 let state = {
-  global: {}, fyler: {request: '',requestjson: {}, response: '', err: ''}, user: {authStatus: false, userId: '', userPassword: '', loginform: {validated: false}}, misc: {}
+  global: {}, fyler: {request: '',requestjson: {}, response: '', err: ''}, user: {loggedin: 'false', applerac: '', authStatus: false, userId: '', userPassword: '', loginform: {validated: false}}, misc: {}
 }
 
 module.exports = function () {

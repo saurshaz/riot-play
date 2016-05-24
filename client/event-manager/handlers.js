@@ -1,7 +1,6 @@
 'use strict'
 
 import Fyler from '../components/js/Fyler'
-
 var handlers = {}
 handlers['login'] = {}
 handlers['login'].handleLogin = function (data, store, cb, event) {
@@ -197,4 +196,10 @@ handlers['apiclient'].makeCall = function (data, store, cb, event) {
   })
 }
 
+// serve-auth handlers
+handlers['test'] = {}
+handlers['test'].onAuthDone = function (data, store, cb, event) {
+  store.setState(data.domain, 'applerac', data.applerac)
+  store.setState(data.domain, 'loggedin', data.loggedin)
+}
 module.exports = handlers

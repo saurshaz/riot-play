@@ -102,6 +102,13 @@ eventsConfig.apiclient.push({
   handler: 'changeRequest',
 })
 
+// serveauth components config
+eventsConfig.test = []
+eventsConfig.test.push({
+  signal: 'auth-done',
+  handler: 'onAuthDone'
+})
+
 function setupEvents (data) {
   let context = data.context
   let domain = context.opts.domain || data.domain
@@ -111,14 +118,24 @@ function setupEvents (data) {
     for (let idx in eventsConfig[page]) {
       let event_json = eventsConfig[page][idx]
       let handler = event_json.handler
-      context.root.addEventListener(event_json.event, (e) => {
-        if (e.target.nodeName === event_json.selector.nodename && e.target.id === event_json.selector.nodeid) {
+
+      if (!event_json.event && event_json.signal) {
+        PubSub.subscribe(event_json.signal, () => {
           handlers[page][handler].call(context._, {page: page, domain: domain}, store, (err, result) => {
             context.update()
             console.log('err -> ', err, ' result-> ', context._)
           })
-        }
-      })
+        })
+      } else {
+        context.root.addEventListener(event_json.event, (e) => {
+          if (e.target.nodeName === event_json.selector.nodename && e.target.id === event_json.selector.nodeid) {
+            handlers[page][handler].call(context._, {page: page, domain: domain}, store, (err, result) => {
+              context.update()
+              console.log('err -> ', err, ' result-> ', context._)
+            })
+          }
+        })
+      }
     }
   }
 }
