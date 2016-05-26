@@ -25,15 +25,16 @@ module.exports = function (app) {
   app.use(express.static(path.join(__dirname, '../..', 'public')))
   app.use(cookieParser())
   let sess = {
-    resave: true,
-    saveUninitialized: true,
+    // resave: true,
+    // saveUninitialized: true,
     key: env.get('SESSIONS_KEY'),
     name: env.get('SESSIONS_NAME'),
     secret: env.get('SESSIONS_SECRET'),
     cookie: {
       httpOnly: false
-    },
-    store: new MongoStore({ url: env.get('SESSIONS_DBURL'), autoReconnect: true})
+    }
+  // ,
+  // store: new MongoStore({ url: env.get('SESSIONS_DBURL'), autoReconnect: true})
   }
 
   app.use(session(sess))

@@ -5,6 +5,7 @@ module.exports = function (app) {
   let log = app.get('logger')
   let env = app.get('env')
   const STATIC_RESOURCES_SERVER_ADDRESS = env.get('STATIC_RESOURCES_SERVER_ADDRESS') || '.'
+  const AUTH_SERVER_ADDRESS = env.get('AUTH_SERVER_ADDRESS') || '.'
   let core_service = require('../core/')(app)
   // let thirdparty_service = require('../thirdparty/')
 
@@ -36,12 +37,13 @@ module.exports = function (app) {
             response.json({ result: fn_result })
           } else {
             response.render(passedConfig.view_name + '/index' , {
-              result: fn_result, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS
+              result: fn_result, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS,AUTH_SERVER_ADDRESS: AUTH_SERVER_ADDRESS
+
             })
           }
         } else {
           response.render('error', {
-            error: err, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS
+            error: err, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS,AUTH_SERVER_ADDRESS: AUTH_SERVER_ADDRESS
           })
         }
       })
@@ -50,7 +52,7 @@ module.exports = function (app) {
         response.json({ result: _default_json })
       } else {
         response.render(passedConfig.view_name + '/index' , {
-          result: _default_json, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS
+          result: _default_json, STATIC_RESOURCES_SERVER_ADDRESS: STATIC_RESOURCES_SERVER_ADDRESS,AUTH_SERVER_ADDRESS: AUTH_SERVER_ADDRESS
         })
       }
     }
@@ -64,7 +66,8 @@ module.exports = function (app) {
   // 
   // /view/hello/fylerclient/fyler/dev.html
   app.get('/view/:handler/:page/:domain/*.html', function (req, res) {
-    res.cookie('appinit', 'true')
+    // res.cookie('appinit', 'true')
+    log.info('req.cookies --> ', req.cookies)
     let template = req.path.slice(req.path.lastIndexOf('/') + 1).split('.')[0]
     let isJson = req.path.slice(req.path.lastIndexOf('/') + 1).split('.')[1] === 'json'
     // TODO :: make it passable from PUT request instead of GET
