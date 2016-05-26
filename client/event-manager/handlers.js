@@ -199,7 +199,7 @@ handlers['apiclient'].makeCall = function (data, store, cb, event) {
 // serve-auth handlers
 handlers['test'] = {}
 handlers['test'].onAuthDone = function (data, store, cb, event) {
-  store.setState(data.domain, 'applerac', data.applerac)
-  store.setState(data.domain, 'loggedin', data.loggedin)
+  store.setState(data.domain, 'applerac', data.data.applerac)
+  store.setState(data.domain, 'loggedin', data.data.loggedin)
 }
 module.exports = handlers

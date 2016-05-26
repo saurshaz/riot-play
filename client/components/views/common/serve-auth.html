@@ -6,10 +6,11 @@ import AuthenticatorX from '../../../event-manager/mixins/authx'
 
 
 <serve-auth>
-    <section if={_.fyler.loggedin}>
+    <section if={_.user.loggedin}>
+
       <yield />
     </section>
-    <section if={ ! _.fyler.loggedin}>
+    <section if={ ! _.user.loggedin}>
       <p>please authenticate .. </p>
 
       <a href="{APP_URL}/ed?apid=appler&apto={currentLocation}" class="btn btn-danger">
@@ -25,14 +26,14 @@ import AuthenticatorX from '../../../event-manager/mixins/authx'
     //  - add a validationform
     //  - add a validate function in the handlers['<tag-name>'] section to set result
     //                into state.<store>.<validationform>.validated property
-    self.stores = ['fyler'] // stores to watch
+    self.stores = ['user'] // stores to watch
     self.validationform = [] // validation form . this will have validated field
 
     self.mixin(StoreWatcher)
     self.mixin(RouterX)
     self.mixin(AuthenticatorX)
 
-    self._.fyler.loggedin = false
+    self._.user.loggedin = false
     self._.authenticate()
     self.currentLocation = document.location.origin + document.location.pathname + document.location.search
     self.APP_URL = 'http://saurabhs-macbook-air.local:5000'// todo :: rm hardcoding

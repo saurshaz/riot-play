@@ -120,8 +120,8 @@ function setupEvents (data) {
       let handler = event_json.handler
 
       if (!event_json.event && event_json.signal) {
-        PubSub.subscribe(event_json.signal, () => {
-          handlers[page][handler].call(context._, {page: page, domain: domain}, store, (err, result) => {
+        PubSub.subscribe(event_json.signal, (data) => {
+          handlers[page][handler].call(context._, {page: page, domain: domain, data: data}, store, (err, result) => {
             context.update()
             console.log('err -> ', err, ' result-> ', context._)
           })
