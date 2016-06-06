@@ -1,17 +1,38 @@
 import riot from 'riot'
 <riotgram-app>
   <section id='content-area'>
-  <p>Riotgram :: Instagram + RIOT</p>
+    <p>Riotgram :: Flickr + RIOT</p> 
+    <input type="text" placeholder="Search ..." onkeyup={searchMe} value="Life">
+    <section each={pic in pics}>
+      <img src="{pic.url_s_cdn}">
+    </section>
   </section>
 
   <script>
     var self = this
-    self.title = 'Now it\'s loading...'
-    self.body = ''
-    self.data = [
-      { id: 'apple', title: 'Apple', body: "The world biggest fruit company." },
-      { id: 'orange', title: 'Orange', body: "I don't have the word for it..." }
-    ]
+    
+
+    searchMe(e){
+      if (e.keyCode == 13) {
+        let trend = e.target.value || 'life'
+
+        if(trend){
+          // get pictures
+          fetch('https://api.flickr.com/services/rest?sort=relevance&parse_tags=1&content_type=7&extras=can_comment%2Ccount_comments%2Ccount_faves%2Cdescription%2Cisfavorite%2Clicense%2Cmedia%2Cneeds_interstitial%2Cowner_name%2Cpath_alias%2Crealname%2Crotation%2Curl_c%2Curl_l%2Curl_m%2Curl_n%2Curl_q%2Curl_s%2Curl_sq%2Curl_t%2Curl_z%2Cis_marketplace_licensable&per_page=100&page=3&lang=en-US&text='+trend+'&license=2%2C3%2C4%2C5%2C6%2C9&viewerNSID=&method=flickr.photos.search&csrf=&api_key=a6fb36ca2fb34ee1a399654e6272b023&format=json&hermes=1&hermesClient=1&reqId=94ec93a6&nojsoncallback=1').then((data) => {
+            // handle response
+            data.json().then((jsonData) => {
+              self.pics = jsonData.photos.photo
+              self.update()
+            })
+          }).catch((err) => {
+            // handle error
+            debugger;
+          })
+        }
+      }
+    }
+
+
   </script>
 
   <style scoped>
