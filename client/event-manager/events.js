@@ -109,6 +109,12 @@ eventsConfig.test.push({
   handler: 'onAuthDone'
 })
 
+eventsConfig.riotgram = []
+eventsConfig.riotgram.push({
+  signal: 'auth-done',
+  handler: 'onAuthDone'
+})
+
 function setupEvents (data) {
   let context = data.context
   let domain = context.opts.domain || data.domain

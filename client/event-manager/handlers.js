@@ -202,4 +202,11 @@ handlers['test'].onAuthDone = function (data, store, cb, event) {
   store.setState(data.domain, 'applerac', data.data.applerac)
   store.setState(data.domain, 'loggedin', data.data.loggedin)
 }
+
+handlers['riotgram'] = {}
+handlers['riotgram'].onAuthDone = function (data, store, cb, event) {
+  store.setState(data.domain, 'applerac', data.data.applerac)
+  store.setState(data.domain, 'loggedin', data.data.loggedin)
+}
+
 module.exports = handlers
