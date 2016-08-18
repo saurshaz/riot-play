@@ -58,6 +58,7 @@ module.exports = function (app) {
     }
   }
 
+  // http://localhost:6600/view/hello/home/fyler/home.html?p=pane1&cid=apiclient&a=b&c=d
   // http://localhost:6600/home?handler=hello&view=login&a=g&b=f&a=i&a=u#home
   // this request will showcase `server` dynamism, as well as `client` dynamism
   // `server` dynamism - base d on handler from querystring. view is also taken from the querystring
